@@ -21,14 +21,14 @@
 | **Ardışık Eylem** | Veriyi çektik ve sonra temizledik. | Veriyi çekip temizledik. | `-Ip` |
 | **Zaman / Tetikleme** | Cache doldu ve istekler yavaşlamaya başladı. | Cache dolunca istekler yavaşlamaya başladı. | `-IncA` |
 | **Orantı / Süreç** | Trafik arttı ve buna bağlı olarak hata oranı da yükseldi. | Trafik arttıkça hata oranı da yükseldi. | `-dIkçA` |
-| **Yöntem / Araç** | Maliyetleri düşürdük ve bu sayede karlılığı artırdık. | Maliyetleri düşürerek karlılığı artırdık. | `-ArAk` |
+| **Yöntem / Araç** | Maliyetleri düşürdük ve bu sayede kârlılığı artırdık. | Maliyetleri düşürerek kârlılığı artırdık. | `-ArAk` |
 | **Zıtlık / Eşzamanlılık** | Birinci grup hızlı ilerler ve ikinci grup daha yavaş kalır. | Birinci grup hızlı ilerlerken ikincisi daha yavaş kalıyor. | `-ken` |
 
 - **Sınır Kuralı (Sadakat Uyarıcısı):** Ulaç eklemek iki olay arasında zamansal veya nedensel bir bağ kurar. Kaynak metinde iki cümle arasında böyle bir bağ yoksa ve yalnızca yan yana duruyorlarsa, zorla ulaç ekleyip yeni bir nedensellik uydurma, virgülle veya ayrı cümle olarak bırak.
 
 ## 3. Koşulaç (Copula) Şişmesi: `-DIr` ve `-mAktAdIr` Salgını
 
-İngilizcede geniş zamanlı her isim cümlesinde `is / are` zorunludur (`This method is effective`). LLM'ler bu `is/are` yapısını Türkçeye refleks olarak **`-DIr`** ve şimdiki/geniş zamanı **`-mAktAdIr`** olarak çevirir. Oysa doğal Türkçede geniş zaman isim cümlesinde koşulaç sıfırdır (ek almaz). `-DIr` yalnızca resmi/akademik kesinlik veya olasılık (`Eve varmıştır`) bildirir.
+İngilizcede geniş zamanlı her isim cümlesinde `is / are` zorunludur (`This method is effective`). LLM'ler bu `is/are` yapısını Türkçeye refleks olarak **`-DIr`** ve şimdiki/geniş zamanı **`-mAktAdIr`** olarak çevirir. Oysa doğal Türkçede geniş zaman isim cümlesinde koşulaç sıfırdır (ek almaz). `-DIr` yalnızca resmî/akademik kesinlik veya olasılık (`Eve varmıştır`) bildirir.
 
 - **Akademik / Hukuki Register Dışında `-DIr` ve `-mAktAdIr` Temizliği:**
   - **Makine:** *"Bu yöntem oldukça etkilidir ve geliştiricilere büyük kolaylık sağlamaktadır. Burası sistemin en kritik parçasıdır."*
@@ -47,7 +47,7 @@ Türkçede ise sözcük dizimi esnektir ve **vurgu yuvası yüklemin hemen önü
 - **Nesne Vurgusu:** *"Ben dün Ahmet'e **raporu** gönderdim."* (Neyin gönderildiği vurgulanıyor)
 
 ### Devrik Cümle Kullanımı ve Sınırı
-Günlük, edebi ve blog/deneme Türkçesinde yüklemin cümle sonundan öne çekilmesi (devrik cümle) metne nefes ve konuşma sıcaklığı katar:
+Günlük, edebî ve blog/deneme Türkçesinde yüklemin cümle sonundan öne çekilmesi (devrik cümle) metne nefes ve konuşma sıcaklığı katar:
 
 - **Makine:** *"Kimse bu uzun hata raporlarını sonuna kadar okumuyor."*
 - **İnsan (Blog/Deneme):** *"Kimse sonuna kadar okumuyor bu uzun hata raporlarını."*
@@ -71,7 +71,7 @@ Türkçe yüklemdeki şahıs ekleriyle (`-Im, -sIn, -Iz, -lAr`) ve isimdeki iyel
 ### C. İngilizce `his/her/its own` Çevirisi Olan Gereksiz `"Kendi"` ve İyelik Zamirleri
 
 - **Makine:** *"Her servis **kendi veritabanına** bağlanır ve **onun kendi** yapılandırmasını okur."*
-- **İnsan:** *"Her servis kendi veritabanına bağlanıp yapılandırmasını okur."* (İyelik eki `-sI` zaten aitliği verir; zıtlık yoksa `kendi` tekrarlanmaz).
+- **İnsan:** *"Her servis kendi veritabanına bağlanıp yapılandırmasını okur."* (İyelik eki `-sI` zaten aitliği verir. Zıtlık yoksa `kendi` tekrarlanmaz.)
 
 ## 6. Edilgen Çatı (`tarafından`) ve Kof Yardımcı Fiil Temizliği
 
@@ -90,7 +90,7 @@ LLM'ler tek bir Türkçe fiille anlatılabilecek eylemleri isim + yardımcı fii
 | **sağlamak** (aşırı kullanım) | sunmak, vermek, kazandırmak, doğrudan ettirgen çatı (`-DIr`, `-t`) | *"Hız artışı sağlar"* -> *"Sistemi hızlandırır"* / *"Destek sağlar"* -> *"Destek verir"* |
 | **katkıda bulunmak / yardımcı olmak** | katkı sunmak, desteklemek, yararı dokunmak | *"Büyümesine katkıda bulunur"* -> *"Büyümesini destekler"* |
 | **sahip olmak** (`have / has` çevirisi) | `-lI` eki, `var`, `barındırmak`, `içermek`, `taşımak` | *"Yüksek hıza sahiptir"* -> *"Çok hızlıdır"* / *"Üç katmana sahiptir"* -> *"Üç katmandan oluşur"* |
-| **ev sahipliği yapmak** (`host / feature`) | barındırmak, ağırlamak, yer almak | *"Bölge birçok tarihi yapıya ev sahipliği yapmaktadır"* -> *"Bölgede pek çok tarihi yapı var"* |
+| **ev sahipliği yapmak** (`host / feature`) | barındırmak, ağırlamak, yer almak | *"Bölge birçok tarihî yapıya ev sahipliği yapmaktadır"* -> *"Bölgede pek çok tarihî yapı var"* |
 | **rol oynamak** (`play a role`) | belirlemek, etkilemek, işe yaramak | *"Kritik bir rol oynamaktadır"* -> *"Belirler / belkemiğini oluşturur"* |
 | **olarak** (aşırı edat kullanımı) | `-cA`, hâl ekleri veya doğrudan yüklem | *"İlk adım olarak veriyi sildik"* -> *"İlk adımda veriyi sildik"* / *"Sonuç olarak"* -> *"Sonuçta"* |
 
@@ -108,13 +108,13 @@ LLM'ler tek bir Türkçe fiille anlatılabilecek eylemleri isim + yardımcı fii
 İngilizce teknik ve kurumsal tamlamaları (`customer segmentation module performance optimization process`) Türkçeye eklerle üst üste yığmak okunabilirliği yok eder. Bir tamlamada en fazla 3 isim yan yana gelebilir, fazlasını sıfat-fiil veya hâl ekleriyle çöz:
 
 - **Makine:** *"Müşteri segmentasyon modülü performans iyileştirme çalışması sonuç raporu"*
-- **İnsan:** *"Müşteri segmentasyon modülünde yaptığımız performans çalışmasının sonuçları"*
+- **İnsan:** *"Müşteri segmentasyon modülünün performansını iyileştirme çalışmasının sonuç raporu"* (Kaynakta çalışmayı kimin yaptığı yazmıyor, bu yüzden "yaptığımız" gibi bir özne eklenmez.)
 
 ## 9. Öz-Düzeltme (Self-Correction) ve Söylem Parçacıkları
 
 Makine Türkçesi her şeyi baştan mutlak bir kesinlikle biliyormuş gibi yazar. İnsan yazar ise düşünürken cümleyi daraltır, çekince koyar ve Türkçenin doğal söylem parçacıklarını (`işte`, `ise`, `zaten`, `hani`, `yani`, `bir de`, `tabii`, `daha doğrusu`) yerli yerinde kullanır:
 
 - **Makine:** *"Silme işlemi idempotenttir, bu nedenle dağıtık sistemlerde tercih edilir."*
-- **İnsan:** *"Silme işlemi idempotent olduğu için tercih ediliyor. Güncellemek de çalışır tabii ama bir şey ters gittiğinde sessizce bozulur."*
+- **İnsan:** *"Silme işlemi idempotent. Dağıtık sistemlerde tercih edilmesinin nedeni de bu."* (Parçacık ve cümle bölme ritmi değiştirir ama kaynağa yeni bir iddia eklemez.)
 - **Makine:** *"Birinci yöntem hızlıdır, ikinci yöntem yavaştır."*
 - **İnsan:** *"Birinci yöntem hızlı, ikincisi ise yavaş."*
