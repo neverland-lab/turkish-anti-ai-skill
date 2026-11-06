@@ -1,6 +1,6 @@
 ---
 name: turkish-anti-ai-skill
-description: Türkçe metinlerdeki yapay zekâ izlerini (AI slop, translationese, çeviri kokan cümle mimarisi, -mektedir/-dır şişmesi, yapay bağlaçlar ve TDK uyumsuzlukları) temizler. Sıfırdan doğal, insani ve akıcı Türkçe metin üretir veya mevcut metinleri onarır. Kullanıcı Türkçe bir metni "insanlaştır", "humanize et", "AI kokusunu sil", "doğal Türkçeye çevir", "daha insani/akıcı yaz" dediğinde veya Türkçe blog, makale, kurumsal yazı, sosyal medya içeriği ve teknik doküman yazarken/düzenlerken bu yeteneği kullan.
+description: Türkçe metni insan eliyle yazılmış gibi doğal yazar veya onarır. Kullanıcı Türkçe bir metin için "insanileştir", "humanize et", "AI hissiyatını sil" veya "doğal Türkçeye çevir" dediğinde, metinde çeviri kokusu ya da TDK hatası denetimi istediğinde, Türkçe blog, makale, kurumsal yazı, sosyal medya içeriği veya teknik doküman yazarken kullan.
 license: MIT
 metadata:
   author: yucezerey
@@ -13,7 +13,7 @@ Bu yetenek, Büyük Dil Modellerinin (LLM) İngilizce ağırlıklı eğitim veri
 
 Detaylı dilbilimi kuralları ve sözlük tabloları için bu dizindeki referans dosyalarını oku:
 
-- `references/sentaks-ve-morfoloji.md`: Türkçe cümlenin geometrisi (öge dizilimi, bilgi yapısı, gömme derinliği), sola dallanma, ulaç sistemi, vurgu yuvası, `-DIr` ile `-mAktAdIr` ayrımı, zamir düşürme, adlaştırma zincirleri ve kof yardımcı fiil dönüşümleri.
+- `references/sentaks-ve-morfoloji.md`: Türkçe cümlenin geometrisi (öge dizilimi, bilgi yapısı, gömme derinliği), sola dallanma, ulaç sistemi, vurgu yuvası, `-DIr` ile `-mAktAdIr` ayrımı, zamir düşürme, adlaştırma zincirleri, kof yardımcı fiil dönüşümleri ve koşutluk (ortak öge, liste biçim birliği, yapay simetri).
 - `references/ai-turkcesi-sozlugu.md`: Tier-1 (kesin AI ifşaları), Tier-2 (bürokratik bağlaçlar) ve Tier-3 (SaaS/pazarlama çeviri kalıpları) sözlüğü.
 - `references/tdk-ve-noktalama.md`: 5 mutlak noktalama yasağı, TDK birleşik/ayrı kelimeler ve yabancı teknik terimlerin Türkçe okunuşa göre ek uyumu.
 - `references/register-ve-ornekler.md`: 5 register × 9 üslup boyutu matrisi ve uçtan uca Before/After dönüşüm çiftleri.
@@ -44,7 +44,7 @@ Kullanıcı kendi yazısından örnek verdiyse (few-shot referans), cümle uzunl
 | **Blog / Deneme / Sosyal Medya** | Tam (Sahne ile başla, ilan etme) | Tam (Ulaç, özne düşürme, `-mIş`) | `-mAktAdIr` sil, ad cümlesinde `-DIr` seyrek | Serbest ama seyrek (400 kelimede 2-3 devrik yol gösterici bir tahmin) |
 | **Teknik Doküman / Mühendislik** | Orta (Doğrudan probleme gir) | Tam (Sola dallanma, ulaç, net yüklem) | `-mAktAdIr` yerine `-Ar/-Ir` veya `-(I)yor`, tanım cümlesinde `-DIr` korunur | Devrik yok, parçacık çok az |
 | **Kurumsal / İş İletişimi / SaaS** | Orta (Tezi ilk cümlede söyle) | Tam (Kurumun kendi eylemini etkene çevir, kof fiili at) | `-mAktAdIr` yalnızca resmî duyuruda, `-DIr` tanımda | Devrik yok, doğal ve doğrudan |
-| **Akademik / Resmî / Hukuki** | Kapalı (Belge iskeletini koru) | Sola dallanma, ulaç ve vurgu yuvası | Korunur ama her cümlede değil, geniş zamanla nöbetleşe | Kesinlikle yasak |
+| **Akademik / Resmî / Hukuki** | Kapalı (Belge iskeletini koru) | Sola dallanma, ulaç ve vurgu yuvası | Korunur, tekrarı azaltılır (100 kelimede yaklaşık 0,5-2,5, art arda üç cümle aynı ekle bitmez, geniş zamanla nöbetleşe) | Kesinlikle yasak |
 | **Edebî / Anlatı** | Tam (Ritim ve imge odaklı) | Tam (Nefes uzunluğu varyasyonu yüksek) | `-mAktAdIr` sil, `-DIr` anlatı akışında seyrek | Anlatı ritmine göre doğal |
 
 ### Adım 2: Üç Katmanlı Dönüşüm
@@ -68,6 +68,7 @@ Detaylı kurallar ve örnekler için `references/sentaks-ve-morfoloji.md` dosyas
 - **Vurgu Yuvasını (Yüklem Önü) Kullan:** Türkçede vurgu kalın yazıyla veya *"Tam da bu noktada"* dolgusuyla değil, vurgulanacak ögeyi yüklemin hemen önüne çekerek verilir (*"Dün İzmir'e ben gittim"* vs. *"Ben İzmir'e dün gittim"*). Yüklemden sonraya yalnızca bağlamdan bilinen öge alınabilir.
 - **Zamir Düşürme (Pro-Drop), `"Bir"` Yoğunluğu ve `"Kendi"`:** Yüklemdeki kişi eki özneyi zaten taşıyorsa `ben, sen, o, biz` zamirlerini düşür, çünkü açık zamir karşıtlık bildirir. `bir` tek başına hata değildir (*"derin bir iz bıraktı"*). Önce kalıplaşmış birleşik eylemlerin içindekini at (*"büyük bir önem taşıyor"* -> *"büyük önem taşıyor"*), bir cümlede birden fazla *sıfat + bir + soyut ad* varsa seyrelt. `own` çevirisi olan gereksiz `"kendi"` zamirini sil.
 - **Edilgen Çatı (`tarafından`), Adlaştırma ve Kof Yardımcı Fiiller:** `tarafından` Türkçenin kendi yapısıdır (*"Köprü Mimar Sinan tarafından yapıldı"*). Yalnızca eyleyen yazarın kendisi ya da kurumu olduğunda (*"Ekibimiz tarafından gerçekleştirilmiştir"* -> *"Ekibimiz yaptı"*) veya kof eylemle birlikte geldiğinde etkene çevir. *"-mAsI gerekmektedir / sağlanmalıdır"* zincirlerini doğrudan çekimle çöz (*"yedeklenmesinin sağlanması gerekmektedir"* -> *"yedeklenmeli"*). *"Gerçekleştirmek, sağlamak, sahip olmak"* öbeklerini seyrelt. `katkıda bulunmak` yerleşik bir deyimdir, sözlükte yer almayan `katkı sunmak` ile değiştirme.
+- **Koşutluk (Cümlenin Simetrisi):** `ve` ile iki yükleme bağlanan ortak öge her yüklemin hâline ve çatısına uymalı (*"geri bildirimleri inceliyor ve yer veriyoruz"* -> *"geri bildirimleri inceliyor ve bunlara yer veriyoruz"*). Listedeki ögeleri aynı biçimde kur (`-mAk` ile `-mAsI` ad-eylemlerini ve ad öbeklerini karıştırma). `ne ... ne` ile yüklemi olumsuz çekimleme. Anlamın gerektirmediği ayna karşıtlık ve aynı kalıba dökülmüş üçlülerle slogan kurma, süsü atıp somut iddiayı söyle.
 - **Kanıtsallık Kipi (`-mIş`):** Dolaylı öğrenilen, log kaydından okunan veya sonradan fark edilen durumlarda gündelik ve blog register'ında Türkçenin kanıtsallık kipini (`-mIş`) kullan (*"Sunucu gece yeniden başlamış"*). Resmî rapor ve tutanakta kayıtla kesinleşmiş olgu için `-DI` olağandır.
 
 #### Katman 3: TDK Yazım Kılavuzu, Noktalama ve Terminoloji (P2 Sinyalleri)
@@ -89,6 +90,7 @@ Taslağı oluşturduktan sonra kullanıcıya sunmadan önce şu kontrolleri yap:
 
 - **Cümle Uzunluğu Varyasyonu (Burstiness CoV >= 0.40):** Arka arkaya gelen tüm cümleler 15-22 kelime bandında toplanmışsa ritim mekanikleşmiştir (CoV < 0.35). 3 veya daha fazla cümleli her paragrafta en az bir kısa/vurucu cümle (3-6 kelime) ile en az bir ulaçlı/sola dallanan uzun cümleyi (18-28 kelime) bir arada kullanarak değişim katsayısını (CoV) >= 0.40 seviyesinde tut.
 - **Tier-1 Yasaklı Kelime Taraması:** Metinde `âdeta` (`adeta`), `yadsınamaz`, `kritik bir rol oynamaktadır`, `derinlemesine`, `yelpaze`, `dönüm noktası`, `bununla birlikte`, `öte yandan`, `söz konusu`, `bu bağlamda` kalıplarının kalmadığından emin ol (`references/ai-turkcesi-sozlugu.md`).
+- **Koşutluk Kontrolü:** `ve` ile birleştirdiğin her iki yüklemi tek tek oku. Ortak öge ikisine de hâl, çatı ve anlam bakımından uyuyor mu? Ulaçlı yan cümlenin söylenmeyen öznesi ana cümlenin öznesiyle aynı mı?
 - **Olgusal Sadakat Kontrolü:** Kaynak metindeki tüm sayılar, tarihler, teknik terimler ve iddialar korundu mu? Kaynakta olmayan bir sayı, yer adı, kişi, sıfat veya abartı eklendi mi? Artış/azalış yönü, olumsuzluk ve ihtiyat (`-ebilir`, `görünüyor`) aynı kaldı mı? Ritim hedefini tutturmak için kaynakta olmayan kısa bir cümle eklendiyse sil.
 
 ### Adım 4: Silme Testi (Deletion Test) ve Çıktı Teslimi
