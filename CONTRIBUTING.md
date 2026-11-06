@@ -15,7 +15,7 @@ Yeni bir kelime, bağlaç veya cümle yapısı için Pull Request (PR) veya Issu
 - **Önce (Makine Türkçesi Örneği):** Kalıbın gerçek bir LLM çıktısındaki doğal olmayan kullanımı.
 - **Sonra (İnsan Türkçesi Örneği):** Olgusal sadakati bozmadan onarılmış doğal Türkçe karşılığı.
 - **İstisna / Sınır Durumu (Do-Not-Flag):** Bu kuralın hangi register'da veya bağlamda **uygulanmaması** gerektiği (Örn: `-mAktAdIr` eki akademik/resmî register'da korunur).
-- **Kural Türü:** `[TDK]` veya `[Üslup]`. Bir kuralı `[TDK]` diye etiketlemek için TDK Yazım Kılavuzu'ndaki ([yazim.tdk.gov.tr](https://yazim.tdk.gov.tr/index.html)) veya Güncel Türkçe Sözlük'teki ([sozluk.gov.tr](https://sozluk.gov.tr/)) ilgili maddeyi bağlantısıyla göster. Kılavuzda karşılığı olmayan kurallar `[Üslup]` olarak eklenir ve dedektörde "TDK hatası" diye raporlanmaz.
+- **Kural Türü:** `[TDK]`, `[Dil bilgisi]` veya `[Üslup]`. Cümle yapısı kurallarında `[Dil bilgisi]` etiketi yalnızca uyulmadığında cümlenin bozulduğu ya da anlamın kaydığı durumlar içindir, dayanağını göster (bkz. `references/sentaks-ve-morfoloji.md` başındaki kaynaklar). Bir kuralı `[TDK]` diye etiketlemek için TDK Yazım Kılavuzu'ndaki ([yazim.tdk.gov.tr](https://yazim.tdk.gov.tr/index.html)) veya Güncel Türkçe Sözlük'teki ([sozluk.gov.tr](https://sozluk.gov.tr/)) ilgili maddeyi bağlantısıyla göster. Kılavuzda karşılığı olmayan kurallar `[Üslup]` olarak eklenir ve dedektörde "TDK hatası" diye raporlanmaz.
 
 ## 2. Paket Senkronizasyonu ve Doğrulama
 
