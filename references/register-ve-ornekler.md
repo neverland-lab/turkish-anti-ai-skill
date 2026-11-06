@@ -23,11 +23,11 @@ Kullanıcı özel bir yazar örneği (few-shot) vermediğinde aşağıdaki 5 pro
 - **Ham AI Çıktısı (Makine Türkçesi):**
   > *"Cache stratejisinin doğru bir şekilde belirlenmesi, sistem performansı açısından kritik bir öneme sahiptir ve gecikme sürelerinin azaltılmasında yadsınamaz bir rol oynamaktadır."*
 - **Akademik / Resmî Register:**
-  > *"Önbellekleme stratejisinin doğru kurgulanması, sistem performansını ve yanıt sürelerini belirlemektedir."*
+  > *"Önbellekleme stratejisinin doğru belirlenmesi, sistem performansını ve yanıt sürelerini belirlemektedir."*
 - **Teknik / Mühendislik Register:**
-  > *"Cache stratejisini doğru kurgulamak performansı artırır ve gecikmeyi düşürür."*
+  > *"Cache stratejisini doğru kurmak performansı artırır ve gecikmeyi düşürür."*
 - **Kurumsal / Ürün Register:**
-  > *"Doğru önbellek kurgusu, sisteminizi hızlandırırken yanıt sürelerini kısaltır."*
+  > *"Doğru önbellek stratejisi, sisteminizi hızlandırırken yanıt sürelerini kısaltır."*
 - **Blog / Deneme Register:**
   > *"Performansı belirleyen şeylerden biri cache stratejisi. Doğru kurarsanız gecikme de azalıyor."*
   >
@@ -50,7 +50,7 @@ Kullanıcı özel bir yazar örneği (few-shot) vermediğinde aşağıdaki 5 pro
 7. *"Sonuç olarak ... ayak uydurmak zorundadır"* (Vaaz veren özet kapanış - P0)
 
 **Sonra (Doğal İnsan Türkçesi - Blog/Deneme Register):**
-> Uzaktan çalışma artık şirket kültürünün kalıcı bir parçası. Araştırmalar da aynı şeyi söylüyor: Çalışanlara esneklik tanıdığınızda verimlilik artıyor. İşin zor kısmı, ekip aynı ofisi paylaşmazken iletişimi koparmamak. Kalıcı çözüm ise çalışma düzenini baştan sona bu yeni ritme göre kurgulamaktan geçiyor.
+> Uzaktan çalışma artık şirket kültürünün kalıcı bir parçası. Araştırmalar da aynı şeyi söylüyor: Çalışanlara esneklik tanıdığınızda verimlilik artıyor. İşin zor kısmı, ekip aynı ofisi paylaşmazken iletişimi koparmamak. Kalıcı çözüm ise çalışma düzenini baştan sona bu yeni ritme göre kurmak.
 
 ### Örnek 2: Teknik / Yazılım Mühendisliği Dokümanı
 
