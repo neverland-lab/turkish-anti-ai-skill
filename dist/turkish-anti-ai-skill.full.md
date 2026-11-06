@@ -1,6 +1,6 @@
 ---
 name: turkish-anti-ai-skill
-description: Türkçe metinlerdeki yapay zekâ izlerini (AI slop, translationese, çeviri kokan cümle mimarisi, -mektedir/-dır şişmesi, yapay bağlaçlar ve TDK uyumsuzlukları) temizler. Sıfırdan doğal, insani ve akıcı Türkçe metin üretir veya mevcut metinleri onarır. Kullanıcı Türkçe bir metni "insanlaştır", "humanize et", "AI kokusunu sil", "doğal Türkçeye çevir", "daha insani/akıcı yaz" dediğinde veya Türkçe blog, makale, kurumsal yazı, sosyal medya içeriği ve teknik doküman yazarken/düzenlerken bu yeteneği kullan.
+description: Türkçe metni insan eliyle yazılmış gibi doğal yazar veya onarır. Kullanıcı Türkçe bir metin için "insanileştir", "humanize et", "AI hissiyatını sil" veya "doğal Türkçeye çevir" dediğinde, metinde çeviri kokusu ya da TDK hatası denetimi istediğinde, Türkçe blog, makale, kurumsal yazı, sosyal medya içeriği veya teknik doküman yazarken kullan.
 license: MIT
 metadata:
   author: yucezerey
@@ -13,7 +13,7 @@ Bu yetenek, Büyük Dil Modellerinin (LLM) İngilizce ağırlıklı eğitim veri
 
 Detaylı dilbilimi kuralları ve sözlük tabloları için bu dizindeki referans dosyalarını oku:
 
-- `references/sentaks-ve-morfoloji.md`: Türkçe cümlenin geometrisi (öge dizilimi, bilgi yapısı, gömme derinliği), sola dallanma, ulaç sistemi, vurgu yuvası, `-DIr` ile `-mAktAdIr` ayrımı, zamir düşürme, adlaştırma zincirleri ve kof yardımcı fiil dönüşümleri.
+- `references/sentaks-ve-morfoloji.md`: Türkçe cümlenin geometrisi (öge dizilimi, bilgi yapısı, gömme derinliği), sola dallanma, ulaç sistemi, vurgu yuvası, `-DIr` ile `-mAktAdIr` ayrımı, zamir düşürme, adlaştırma zincirleri, kof yardımcı fiil dönüşümleri ve koşutluk (ortak öge, liste biçim birliği, yapay simetri).
 - `references/ai-turkcesi-sozlugu.md`: Tier-1 (kesin AI ifşaları), Tier-2 (bürokratik bağlaçlar) ve Tier-3 (SaaS/pazarlama çeviri kalıpları) sözlüğü.
 - `references/tdk-ve-noktalama.md`: 5 mutlak noktalama yasağı, TDK birleşik/ayrı kelimeler ve yabancı teknik terimlerin Türkçe okunuşa göre ek uyumu.
 - `references/register-ve-ornekler.md`: 5 register × 9 üslup boyutu matrisi ve uçtan uca Before/After dönüşüm çiftleri.
@@ -44,7 +44,7 @@ Kullanıcı kendi yazısından örnek verdiyse (few-shot referans), cümle uzunl
 | **Blog / Deneme / Sosyal Medya** | Tam (Sahne ile başla, ilan etme) | Tam (Ulaç, özne düşürme, `-mIş`) | `-mAktAdIr` sil, ad cümlesinde `-DIr` seyrek | Serbest ama seyrek (400 kelimede 2-3 devrik yol gösterici bir tahmin) |
 | **Teknik Doküman / Mühendislik** | Orta (Doğrudan probleme gir) | Tam (Sola dallanma, ulaç, net yüklem) | `-mAktAdIr` yerine `-Ar/-Ir` veya `-(I)yor`, tanım cümlesinde `-DIr` korunur | Devrik yok, parçacık çok az |
 | **Kurumsal / İş İletişimi / SaaS** | Orta (Tezi ilk cümlede söyle) | Tam (Kurumun kendi eylemini etkene çevir, kof fiili at) | `-mAktAdIr` yalnızca resmî duyuruda, `-DIr` tanımda | Devrik yok, doğal ve doğrudan |
-| **Akademik / Resmî / Hukuki** | Kapalı (Belge iskeletini koru) | Sola dallanma, ulaç ve vurgu yuvası | Korunur ama her cümlede değil, geniş zamanla nöbetleşe | Kesinlikle yasak |
+| **Akademik / Resmî / Hukuki** | Kapalı (Belge iskeletini koru) | Sola dallanma, ulaç ve vurgu yuvası | Korunur, tekrarı azaltılır (100 kelimede yaklaşık 0,5-2,5, art arda üç cümle aynı ekle bitmez, geniş zamanla nöbetleşe) | Kesinlikle yasak |
 | **Edebî / Anlatı** | Tam (Ritim ve imge odaklı) | Tam (Nefes uzunluğu varyasyonu yüksek) | `-mAktAdIr` sil, `-DIr` anlatı akışında seyrek | Anlatı ritmine göre doğal |
 
 ### Adım 2: Üç Katmanlı Dönüşüm
@@ -68,6 +68,7 @@ Detaylı kurallar ve örnekler için `references/sentaks-ve-morfoloji.md` dosyas
 - **Vurgu Yuvasını (Yüklem Önü) Kullan:** Türkçede vurgu kalın yazıyla veya *"Tam da bu noktada"* dolgusuyla değil, vurgulanacak ögeyi yüklemin hemen önüne çekerek verilir (*"Dün İzmir'e ben gittim"* vs. *"Ben İzmir'e dün gittim"*). Yüklemden sonraya yalnızca bağlamdan bilinen öge alınabilir.
 - **Zamir Düşürme (Pro-Drop), `"Bir"` Yoğunluğu ve `"Kendi"`:** Yüklemdeki kişi eki özneyi zaten taşıyorsa `ben, sen, o, biz` zamirlerini düşür, çünkü açık zamir karşıtlık bildirir. `bir` tek başına hata değildir (*"derin bir iz bıraktı"*). Önce kalıplaşmış birleşik eylemlerin içindekini at (*"büyük bir önem taşıyor"* -> *"büyük önem taşıyor"*), bir cümlede birden fazla *sıfat + bir + soyut ad* varsa seyrelt. `own` çevirisi olan gereksiz `"kendi"` zamirini sil.
 - **Edilgen Çatı (`tarafından`), Adlaştırma ve Kof Yardımcı Fiiller:** `tarafından` Türkçenin kendi yapısıdır (*"Köprü Mimar Sinan tarafından yapıldı"*). Yalnızca eyleyen yazarın kendisi ya da kurumu olduğunda (*"Ekibimiz tarafından gerçekleştirilmiştir"* -> *"Ekibimiz yaptı"*) veya kof eylemle birlikte geldiğinde etkene çevir. *"-mAsI gerekmektedir / sağlanmalıdır"* zincirlerini doğrudan çekimle çöz (*"yedeklenmesinin sağlanması gerekmektedir"* -> *"yedeklenmeli"*). *"Gerçekleştirmek, sağlamak, sahip olmak"* öbeklerini seyrelt. `katkıda bulunmak` yerleşik bir deyimdir, sözlükte yer almayan `katkı sunmak` ile değiştirme.
+- **Koşutluk (Cümlenin Simetrisi):** `ve` ile iki yükleme bağlanan ortak öge her yüklemin hâline ve çatısına uymalı (*"geri bildirimleri inceliyor ve yer veriyoruz"* -> *"geri bildirimleri inceliyor ve bunlara yer veriyoruz"*). Listedeki ögeleri aynı biçimde kur (`-mAk` ile `-mAsI` ad-eylemlerini ve ad öbeklerini karıştırma). `ne ... ne` ile yüklemi olumsuz çekimleme. Anlamın gerektirmediği ayna karşıtlık ve aynı kalıba dökülmüş üçlülerle slogan kurma, süsü atıp somut iddiayı söyle.
 - **Kanıtsallık Kipi (`-mIş`):** Dolaylı öğrenilen, log kaydından okunan veya sonradan fark edilen durumlarda gündelik ve blog register'ında Türkçenin kanıtsallık kipini (`-mIş`) kullan (*"Sunucu gece yeniden başlamış"*). Resmî rapor ve tutanakta kayıtla kesinleşmiş olgu için `-DI` olağandır.
 
 #### Katman 3: TDK Yazım Kılavuzu, Noktalama ve Terminoloji (P2 Sinyalleri)
@@ -89,6 +90,7 @@ Taslağı oluşturduktan sonra kullanıcıya sunmadan önce şu kontrolleri yap:
 
 - **Cümle Uzunluğu Varyasyonu (Burstiness CoV >= 0.40):** Arka arkaya gelen tüm cümleler 15-22 kelime bandında toplanmışsa ritim mekanikleşmiştir (CoV < 0.35). 3 veya daha fazla cümleli her paragrafta en az bir kısa/vurucu cümle (3-6 kelime) ile en az bir ulaçlı/sola dallanan uzun cümleyi (18-28 kelime) bir arada kullanarak değişim katsayısını (CoV) >= 0.40 seviyesinde tut.
 - **Tier-1 Yasaklı Kelime Taraması:** Metinde `âdeta` (`adeta`), `yadsınamaz`, `kritik bir rol oynamaktadır`, `derinlemesine`, `yelpaze`, `dönüm noktası`, `bununla birlikte`, `öte yandan`, `söz konusu`, `bu bağlamda` kalıplarının kalmadığından emin ol (`references/ai-turkcesi-sozlugu.md`).
+- **Koşutluk Kontrolü:** `ve` ile birleştirdiğin her iki yüklemi tek tek oku. Ortak öge ikisine de hâl, çatı ve anlam bakımından uyuyor mu? Ulaçlı yan cümlenin söylenmeyen öznesi ana cümlenin öznesiyle aynı mı?
 - **Olgusal Sadakat Kontrolü:** Kaynak metindeki tüm sayılar, tarihler, teknik terimler ve iddialar korundu mu? Kaynakta olmayan bir sayı, yer adı, kişi, sıfat veya abartı eklendi mi? Artış/azalış yönü, olumsuzluk ve ihtiyat (`-ebilir`, `görünüyor`) aynı kaldı mı? Ritim hedefini tutturmak için kaynakta olmayan kısa bir cümle eklendiyse sil.
 
 ### Adım 4: Silme Testi (Deletion Test) ve Çıktı Teslimi
@@ -227,7 +229,7 @@ Aynı eki alan sıralı yüklemlerde Türkçe eki yalnızca sonuncuya getirir. E
 
 ### D. Doz
 
-Akademik register'da `-mAktAdIr` ve `-DIr` korunur ama her cümleyi bunlarla bitirme, geniş zamanla (`-Ar/-Ir`) nöbetleşe kullan. Hakemli Türkçe makaleler için şimdiye kadar önerilen yoğunluk aralıkları (100 kelimede `-mAktAdIr` için 0,4-2,3, `-DIr` için 2,3-4,0) **deneysel değerlerdir, bir derlem çalışmasıyla doğrulanmamıştır.** Kesin eşik gibi kullanma.
+Akademik register'da `-mAktAdIr` ve `-DIr` korunur, sorun eklerin kendisi değil tekrarıdır. Art arda üç cümleyi aynı ekle (`-mektedir`, `-mıştır`, `-dır`) bitirme, geniş zaman (`-Ar/-Ir`) ve `-mIştIr` ile nöbetleşe kullan. Başlangıç hedefi olarak 100 kelimede yaklaşık 0,5-2,5 `-mAktAdIr` kullanılabilir. **Bu aralık bir derlem ölçümüne dayanmaz**, dedektörün `--register` seçeneğiyle değiştirilebilen varsayılan değeridir. Kesin eşik gibi kullanma.
 
 ## 4. Vurgu Yuvası (Yüklem Önü) ve Devrik Cümle
 
@@ -341,6 +343,85 @@ Makine Türkçesi her şeyi baştan mutlak bir kesinlikle biliyormuş gibi yazar
 - **Makine:** *"Birinci yöntem hızlıdır, ikinci yöntem yavaştır."*
 - **İnsan:** *"Birinci yöntem hızlı, ikincisi ise yavaş."*
 - **Sınır `[Üslup]`:** Her parçacık silme testinden geçmeli. Kaldırıldığında anlamdan ya da tondan bir şey eksilmiyorsa o parçacık süstür, silinir.
+
+## 10. Koşutluk: Cümlenin Simetrisi
+
+`ve`, virgül ya da ikili bağlaçla (`hem ... hem`, `ne ... ne`) bağlanan ögeler aynı görevi taşıyorsa aynı biçimde kurulur. Birden fazla yükleme ortak bağlanan öge de her yüklemin istediği biçime uymalıdır. Türkçe dil bilgisi kitaplarında bu hatalar "anlatım bozukluğu" başlığı altında geçer.
+
+Dil modeli bu hataları sık yapar, çünkü İngilizcede ad hâl eki almaz. *"We review and include user feedback"* cümlesinde iki eylem tek nesneyi rahatça paylaşır. Türkçede ise her yüklem nesnesine kendi hâl ekini dayatır.
+
+### A. Ortak öge her yüklemin hâline uymalı `[Dil bilgisi]`
+
+Bir ögeyi iki yükleme ortak bağlamak ancak iki yüklem de aynı hâli istiyorsa mümkündür. Biri belirtme (`-(y)I`), öteki yönelme (`-(y)A`) istiyorsa ikinci yükleme ögeyi zamirle yeniden bağla:
+
+- **Bozuk:** *"Kullanıcı geri bildirimlerini inceliyor ve yol haritamızda yer veriyoruz."* (`incelemek` neyi, `yer vermek` neye ister.)
+- **Doğru:** *"Kullanıcı geri bildirimlerini inceliyor ve bunlara yol haritamızda yer veriyoruz."*
+- **Bozuk:** *"Açık kaynak kütüphanelere güveniyoruz ama güvenlik taramasından geçirmeden kullanmıyoruz."*
+- **Doğru:** *"Açık kaynak kütüphanelere güveniyoruz ama onları güvenlik taramasından geçirmeden kullanmıyoruz."*
+
+Hâl ekleri aynı olsa bile ortak öge ikinci yükleme anlamca uymayabilir:
+
+- **Anlam kayması:** *"Müşteri verilerinin gizliliğini önemsiyor ve üçüncü taraflarla paylaşmıyoruz."* (Paylaşılmayan şey gizlilik olur.)
+- **Doğru:** *"Müşteri verilerinin gizliliğini önemsiyor ve bu verileri üçüncü taraflarla paylaşmıyoruz."*
+
+### B. Ortak özne her yüklemin çatısına uymalı `[Dil bilgisi]`
+
+Aynı özne bir etken, bir edilgen yükleme birlikte bağlanamaz. Ulaçlı yan cümlede de durum aynıdır (bkz. Bölüm 2, gizli özne):
+
+- **Bozuk:** *"Sistem gelen istekleri doğruladıktan sonra veri tabanına kaydedilir."* (Kaydedilen sistem olur.)
+- **Doğru:** *"Sistem gelen istekleri doğruladıktan sonra veri tabanına kaydeder."*
+- **Bozuk:** *"Şirketimiz karbon ayak izini azaltarak sürdürülebilirlik hedeflerine katkı sağlandı."*
+- **Doğru:** *"Şirketimiz karbon ayak izini azaltarak sürdürülebilirlik hedeflerine katkıda bulundu."*
+- **Hata olmayan durum:** Öznesi ayrı iki cümle farklı çatıda olabilir. *"Ekip testleri tamamladı ve yeni sürüm yayına alındı."* doğrudur.
+
+### C. Ortak ek ancak her kanada uyuyorsa düşürülür `[Dil bilgisi]`
+
+Grup çekimi (Bölüm 3C) ekin bütün kanatlarda aynı olmasını gerektirir. Kişi eki ya da olumsuzluk farklıysa ek düşürülemez:
+
+- **Bozuk (kişi):** *"Pazarlama ekibi yeni kampanyalara, siz ise müşteri bağlılığına odaklanacak."*
+- **Doğru:** *"Pazarlama ekibi yeni kampanyalara odaklanacak, siz ise müşteri bağlılığına odaklanacaksınız."*
+- **Bozuk (olumsuzluk):** *"Model hızlı ve doğruluğu yeterli değildi."* (`değil` grup çekiminde bütün kanatlara yayılır, cümle modelin hızlı olmadığını da söyler.)
+- **Doğru:** *"Model hızlıydı ama doğruluğu yeterli değildi."*
+
+### D. Sıralanan ögeler aynı biçimde kurulmalı `[Dil bilgisi]`
+
+Eş görevli ögeler yalın ad-eylem (`-mAk`), iyelik eki almış ad-eylem (`-mAsI`, `-(y)IşI`) ve ad öbeği arasında karışırsa liste dağılır, ögelerden biri ya da birkaçı ortak yükleme bağlanamaz:
+
+- **Bozuk:** *"Bu güncellemenin amaçları arayüzü hızlandırmak, bellek sızıntılarının giderilmesi ve daha kolay bir kurulum."*
+- **Doğru:** *"Bu güncellemenin amaçları arayüzü hızlandırmak, bellek sızıntılarını gidermek ve kurulumu kolaylaştırmak."*
+- **Bozuk:** *"İyi bir uzaktan çalışma düzeni için düzenli iletişim kurmak, görev dağılımında şeffaflık ve çalışanların motivasyonunu korumamız gerekir."*
+- **Doğru:** *"İyi bir uzaktan çalışma düzeni için düzenli iletişim kurmak, görevleri şeffaf dağıtmak ve çalışanların motivasyonunu korumak gerekir."*
+
+### E. İkili bağlaçlarda kanatlar denk olmalı `[Dil bilgisi]`
+
+`hem ... hem`, `ne ... ne`, `ya ... ya`, `ister ... ister` bağlaçlarının iki kanadı aynı türden ögelerle kurulur:
+
+- **Bozuk:** *"Arayüz hem kullanıcı dostu bir deneyim sunuyor hem de erişilebilirlik standartlarına tam uyumluluk."* (İlk kanat yüklem, ikincisi ad öbeği.)
+- **Doğru:** *"Arayüz hem kullanıcı dostu bir deneyim sunuyor hem de erişilebilirlik standartlarına tam uyuyor."*
+- **Bozuk:** *"İster bulut sunucusu kiralayın ister kendi donanımınıza yatırım yaparak süreci yönetmek mümkün."*
+- **Doğru:** *"İster bulut sunucusu kiralayarak ister kendi donanımınıza yatırım yaparak süreci yönetebilirsiniz."*
+
+`ne ... ne` yargıyı kendisi olumsuz yapar, yüklem olumlu çekimlenir. Konuşmada olumsuz yüklemle de duyulur ama yazı dilinde anlatım bozukluğu sayılır:
+
+- **Bozuk:** *"Bu strateji ne sunucu maliyetini düşürmedi ne de yanıt süresini kısaltmadı."* (Biri olumlu biri olumsuz iki yüklem, *"ne ... düşürdü ne de ... kısaltmadı"*, daha da açık bir bozukluktur.)
+- **Doğru:** *"Bu strateji ne sunucu maliyetini düşürdü ne de yanıt süresini kısalttı."*
+
+### F. Yapay Simetri `[Üslup]`
+
+Dil modeli cümleleri anlamın gerektirmediği bir simetriyle kurar. En sık görülen üç biçim:
+
+- **Ayna karşıtlık:** *"Teknoloji insan için vardır, insan teknoloji için değil."*
+- **Zincirleme tekrar:** *"Veriyi anlamak geleceği anlamaktır, geleceği anlamak değişimi yönetmektir."*
+- **Aynı kalıba dökülmüş üçlü:** *"Bu platform hızıyla zamanı, güvenliğiyle veriyi, esnekliğiyle geleceği korur."*
+
+Bunlar slogan dilidir ve çoğu zaman somut bilgi taşımaz. Onarımda süsü at ve geriye kalan somut iddiayı söyle:
+
+- **Makine:** *"Bu platform hızıyla zamanı, güvenliğiyle veriyi, esnekliğiyle geleceği korur."*
+- **İnsan:** *"Bu platform hızlı, güvenli ve esnek."* (Kaynakta üç özellik var, üçü de kalır. Sorun üçlü liste değil, üç ögenin aynı kalıba dökülmesidir.)
+
+Kaynakta somut bir iddia yoksa onu uydurma. Cümleyi sil ya da `[somut veri: ...]` yer tutucusu bırak. Aynı tik paragraf düzeyinde de görülür: Her paragraf aynı iskeletle (iddia, açıklama, özet cümlesi) kurulur. Paragrafların biçimini içerik belirlesin.
+
+- **Sınır:** Simetri silme testinden geçiyorsa korunur. Gerçek bir karşıtlığı (*"Birinci yöntem hızlı, ikincisi ise yavaş."*) ya da gerçekten koşut iki olguyu anlatan simetri Türkçenin doğal bir aracıdır.
 
 
 <!-- KAYNAK: references/ai-turkcesi-sozlugu.md -->
@@ -519,7 +600,7 @@ Kullanıcı özel bir yazar örneği (few-shot) vermediğinde aşağıdaki 5 pro
 | **Hitap** | Sen veya Siz (tutarlı) | Sen veya nötr 2. çoğul | Siz | 3. şahıs / nötr | Bağlama göre 1. veya 3. şahıs |
 | **Cümle Uzunluğu & Burstiness** | Yüksek dalgalanma (4 kelime ile 28 kelime bir arada) | Orta-Yüksek (Kısa net yargılar + ulaçlı açıklamalar) | Orta (10-20 kelime, net ve taranabilir) | Orta-Uzun (15-30 kelime, sola dallanan yan cümleler) | Çok yüksek dalgalanma (nefes ritmine odaklı) |
 | **Cümlecik Bağlama** | Ulaçlar (`-Ip, -IncA`) + nokta/virgül | Ulaçlar (`-Ip, -dIkçA, -ArAk`) + iki nokta | Ulaçlar + net sebep-sonuç bağlaçları | Sıfat-fiiller (`-An, -DIk`) + ulaçlar | Ulaçlar + ritmik tekrarlar ve virgül |
-| **Kip Dağılımı** | `-yor`, `-DI`, `-mIş` (delil), geniş zaman | Geniş zaman (`-Ir/-Ar` kurallar için), `-DI`, `-mIş` | Geniş zaman, `-yor`, `-DI` | Geniş zaman, `-mAktAdIr` (100 kelimede 0,4-2,3), `-DIr` | Tüm kipler serbest |
+| **Kip Dağılımı** | `-yor`, `-DI`, `-mIş` (delil), geniş zaman | Geniş zaman (`-Ir/-Ar` kurallar için), `-DI`, `-mIş` | Geniş zaman, `-yor`, `-DI` | Geniş zaman, `-mAktAdIr` (100 kelimede yaklaşık 0,5-2,5), `-DIr` | Tüm kipler serbest |
 | **Söylem Parçacıkları** | `işte, zaten, ise, hani, tabii, daha doğrusu` | `ise, aslında, daha doğrusu, örneğin` | `ise, özellikle, doğrudan` | Yalnızca `ise, nitekim, dolayısıyla` | Doğal akışa göre serbest |
 | **Devrik Cümle Oranı** | 400 kelimede 2-3 adet | Sıfır (0) | Sıfır (0) | Sıfır (0) | Anlatı ritmine göre doğal |
 | **Terim Tercihi** | Günlük karşılıklar veya okunuşa göre çekimli terim | Yerleşik İngilizce terim olduğu gibi (`endpoint'e`) | Sektör standardı, jargonsuz sade Türkçe | TDK ve alan terimleri (`veri tabanı, alan yazını`) | Türkçe duygu ve imge değeri yüksek sözcükler |
