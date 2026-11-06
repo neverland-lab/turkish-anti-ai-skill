@@ -118,13 +118,31 @@ Repodaki Python betiği ile herhangi bir Markdown veya metin dosyasını termina
 python3 scripts/detect_tr_ai.py ornek-metin.md
 # JSON çıktısı için:
 python3 scripts/detect_tr_ai.py ornek-metin.md --json
+# Register'a göre '-mAktAdIr' hedefiyle denetim için:
+python3 scripts/detect_tr_ai.py makale.md --register akademik-resmi
 ```
+
+`--register` değerleri: `blog-deneme`, `teknik`, `kurumsal`, `akademik-resmi`, `edebi-anlati`. Register verildiğinde dedektör `-mAktAdIr` yoğunluğunu o metin türünün hedef aralığıyla karşılaştırır. Akademik register'da ek korunur, hedef 100 kelimede yaklaşık 0,5-2,5'tir. Blog ve edebî metinde hedef sıfıra yakındır. Ayrıca art arda üç veya daha fazla cümlenin aynı ekle (`-mektedir`, `-mıştır`, `-dır`) bitip bitmediğini ölçer. Bu aralıklar korpusla kalibre edilmiş değerler değil, `scripts/detect_tr_ai.py` içinden değiştirilebilen başlangıç değerleridir.
 
 Tek parça `dist/turkish-anti-ai-skill.full.md` dosyasını yeniden derlemek için:
 
 ```bash
 python3 scripts/build_dist.py
 ```
+
+## Güvenlik
+
+Skill, modele verilen Markdown talimatlarından ve üç yerel Python betiğinden oluşur. Betikler ağa çıkmaz, komut çalıştırmaz, harici kütüphane kullanmaz.
+
+| Betik | Ne yapar | Dosya yazar mı |
+| :--- | :--- | :--- |
+| `scripts/detect_tr_ai.py` | Verilen metin dosyasını okur, raporu ekrana basar | Hayır |
+| `scripts/run_tests.py` | Repo dosyalarını ve `evals/evals.json` senaryolarını dedektörden geçirir | Hayır |
+| `scripts/build_dist.py` | `dist/` dosyasını üretir, `skills/turkish-anti-ai-skill/` klasörünü kaynakla eşler | Evet, yalnızca repo içinde |
+
+`build_dist.py`, eşleme sırasında `skills/turkish-anti-ai-skill/references/` klasörünü silip yeniden kopyalar. Güvenlik tarayıcıları (Socket, Snyk) bu satırı dosya silme işlemi olarak işaretleyebilir. Silme bir kilitle korunur: hedef bu tek klasör değilse veya symlink ise betik durur, hiçbir şey silinmez.
+
+`npx skills` veya `gh skill` ile kurulumda yalnızca `skills/turkish-anti-ai-skill/` klasörü iner. Bu klasörde betik yoktur, yalnızca `SKILL.md` ve `references/` vardır.
 
 ## Repo Klasör Yapısı
 
