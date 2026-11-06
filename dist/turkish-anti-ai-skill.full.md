@@ -16,7 +16,7 @@ Detaylı dilbilimi kuralları ve sözlük tabloları için bu dizindeki referans
 - `references/sentaks-ve-morfoloji.md`: Türkçe cümlenin geometrisi (öge dizilimi, bilgi yapısı, gömme derinliği), sola dallanma, ulaç sistemi, vurgu yuvası, `-DIr` ile `-mAktAdIr` ayrımı, zamir düşürme, adlaştırma zincirleri, kof yardımcı fiil dönüşümleri ve koşutluk (ortak öge, liste biçim birliği, yapay simetri).
 - `references/ai-turkcesi-sozlugu.md`: Tier-1 (kesin AI ifşaları), Tier-2 (bürokratik bağlaçlar) ve Tier-3 (SaaS/pazarlama çeviri kalıpları) sözlüğü.
 - `references/tdk-ve-noktalama.md`: 5 mutlak noktalama yasağı, TDK birleşik/ayrı kelimeler ve yabancı teknik terimlerin Türkçe okunuşa göre ek uyumu.
-- `references/register-ve-ornekler.md`: 5 register × 9 üslup boyutu matrisi ve uçtan uca Before/After dönüşüm çiftleri.
+- `references/register-ve-ornekler.md`: 6 register × 9 üslup boyutu matrisi (kamu ve kurum içi yazışma profili dâhil) ve uçtan uca Before/After dönüşüm çiftleri.
 
 ## Temel İlkeler
 
@@ -37,15 +37,16 @@ Kullanıcı isteğine göre aşağıdaki üç moddan birini seç:
 
 ### Adım 1: Register ve Üslup Kalibrasyonu
 
-Kullanıcı kendi yazısından örnek verdiyse (few-shot referans), cümle uzunluğu, bağlaç tercihi ve ton açısından kullanıcının örneğini en üst kural kabul et. Örnek yoksa metni şu 5 register'dan birine ata (`references/register-ve-ornekler.md`):
+Kullanıcı kendi yazısından örnek verdiyse (few-shot referans), cümle uzunluğu, bağlaç tercihi ve ton açısından kullanıcının örneğini en üst kural kabul et. Örnek yoksa metni şu 6 register'dan birine ata (`references/register-ve-ornekler.md`):
 
 | Register | Kompozisyon Müdahalesi | Cümle Mimarisi | `-DIr` / `-mAktAdIr` | Devrik Cümle ve Parçacık |
 | :--- | :--- | :--- | :--- | :--- |
 | **Blog / Deneme / Sosyal Medya** | Tam (Sahne ile başla, ilan etme) | Tam (Ulaç, özne düşürme, `-mIş`) | `-mAktAdIr` sil, ad cümlesinde `-DIr` seyrek | Serbest ama seyrek (400 kelimede 2-3 devrik yol gösterici bir tahmin) |
 | **Teknik Doküman / Mühendislik** | Orta (Doğrudan probleme gir) | Tam (Sola dallanma, ulaç, net yüklem) | `-mAktAdIr` yerine `-Ar/-Ir` veya `-(I)yor`, tanım cümlesinde `-DIr` korunur | Devrik yok, parçacık çok az |
-| **Kurumsal / İş İletişimi / SaaS** | Orta (Tezi ilk cümlede söyle) | Tam (Kurumun kendi eylemini etkene çevir, kof fiili at) | `-mAktAdIr` yalnızca resmî duyuruda, `-DIr` tanımda | Devrik yok, doğal ve doğrudan |
+| **Kurumsal / Şirket İletişimi / SaaS** | Orta (Tezi ilk cümlede söyle) | Tam (Kurumun kendi eylemini etkene çevir, kof fiili at) | `-mAktAdIr` yalnızca resmî duyuruda, `-DIr` tanımda | Devrik yok, doğal ve doğrudan |
 | **Akademik / Resmî / Hukuki** | Kapalı (Belge iskeletini koru) | Sola dallanma, ulaç ve vurgu yuvası | Korunur, tekrarı azaltılır (100 kelimede yaklaşık 0,5-2,5, art arda üç cümle aynı ekle bitmez, geniş zamanla nöbetleşe) | Kesinlikle yasak |
 | **Edebî / Anlatı** | Tam (Ritim ve imge odaklı) | Tam (Nefes uzunluğu varyasyonu yüksek) | `-mAktAdIr` sil, `-DIr` anlatı akışında seyrek | Anlatı ritmine göre doğal |
+| **Kamu / Kurum İçi Yazışma** | Kapalı (Konu, gerekçe ve sonuç düzenini koru) | Kurum dilini koru (adlaştırma, edilgen, sıfat-fiil). Yalnızca koşutluk, ortak öge ve özne hatalarını onar | Korunur, art arda üç cümle aynı ekle bitmez | Devrik ve parçacık yok |
 
 ### Adım 2: Üç Katmanlı Dönüşüm
 
@@ -91,7 +92,7 @@ Taslağı oluşturduktan sonra kullanıcıya sunmadan önce şu kontrolleri yap:
 - **Cümle Uzunluğu Varyasyonu (Burstiness CoV >= 0.40):** Arka arkaya gelen tüm cümleler 15-22 kelime bandında toplanmışsa ritim mekanikleşmiştir (CoV < 0.35). 3 veya daha fazla cümleli her paragrafta en az bir kısa/vurucu cümle (3-6 kelime) ile en az bir ulaçlı/sola dallanan uzun cümleyi (18-28 kelime) bir arada kullanarak değişim katsayısını (CoV) >= 0.40 seviyesinde tut.
 - **Tier-1 Yasaklı Kelime Taraması:** Metinde `âdeta` (`adeta`), `yadsınamaz`, `kritik bir rol oynamaktadır`, `derinlemesine`, `yelpaze`, `dönüm noktası`, `bununla birlikte`, `öte yandan`, `söz konusu`, `bu bağlamda` kalıplarının kalmadığından emin ol (`references/ai-turkcesi-sozlugu.md`).
 - **Koşutluk Kontrolü:** `ve` ile birleştirdiğin her iki yüklemi tek tek oku. Ortak öge ikisine de hâl, çatı ve anlam bakımından uyuyor mu? Ulaçlı yan cümlenin söylenmeyen öznesi ana cümlenin öznesiyle aynı mı?
-- **Olgusal Sadakat Kontrolü:** Kaynak metindeki tüm sayılar, tarihler, teknik terimler ve iddialar korundu mu? Kaynakta olmayan bir sayı, yer adı, kişi, sıfat veya abartı eklendi mi? Artış/azalış yönü, olumsuzluk ve ihtiyat (`-ebilir`, `görünüyor`) aynı kaldı mı? Ritim hedefini tutturmak için kaynakta olmayan kısa bir cümle eklendiyse sil.
+- **Olgusal Sadakat Kontrolü:** Kaynak metindeki tüm sayılar, tarihler, teknik terimler ve iddialar korundu mu? Kaynakta olmayan bir sayı, yer adı, kişi, sıfat veya abartı eklendi mi? Artış/azalış yönü, olumsuzluk ve ihtiyat (`-ebilir`, `görünüyor`) aynı kaldı mı? Örnekleme ve kapsam sözcükleri (`gibi`, `vb.`, `bazı`, `çoğu`), tekrar ve süreklilik sözcükleri (`yeniden`, `hâlâ`) ve yeterlilik eki (`-(y)Abil-`) korundu mu? *"... gibi belirtiler"* ifadesini kapalı bir listeye çevirmek de kesinlik uydurmaktır. Ritim hedefini tutturmak için kaynakta olmayan kısa bir cümle eklendiyse sil.
 
 ### Adım 4: Silme Testi (Deletion Test) ve Çıktı Teslimi
 
@@ -102,6 +103,7 @@ Taslağı oluşturduktan sonra kullanıcıya sunmadan önce şu kontrolleri yap:
 
 - **Aşırı Düzeltme (Overcorrection) Tuzağı:** Doğal bir Türkçe metinde geçen her `"bir"` kelimesini, her `tarafından`ı veya her devrik cümleyi hata sanma. `"Sen satışa bak"`, `"Site kurmak"`, `"Linki gönder"` gibi doğal ve yerleşik kullanımlara dokunma.
 - **Aşırı Sola Dallanma Tuzağı:** İngilizce iskeleti onarırken her bilgiyi tek bir adın önüne sıfat-fiillerle yığma. Okurun yükleme varmadan aklında tutması gereken iç içe yan cümle sayısı ikiyi geçiyorsa cümleyi böl.
+- **Kurum Dili Tuzağı:** Kamu ve kurum içi yazışmada adlaştırma, edilgen çatı ve `-mAktAdIr` yapay zekâ izi değil, beklenen biçimdir. Bu register'da onları temizleyip metni gündelik dile çekme, yalnızca gerçek kusurları onar (`references/register-ve-ornekler.md`, 6. profil).
 - **Öz Türkçecilik Tuzağı:** Bu yetenek yabancı kökenli kelimeleri yasaklayan bir "arı dil" aracı değildir. Günlük ve mesleki Türkçede yaşayan kelimeleri (`performans`, `strateji`, `sistem`, `detay`) zorlama karşılıklarla değiştirme.
 - **Sahte Samimiyet:** Kurumsal veya teknik bir metni insanlaştırmak adına metne *"Kahvenizi alın ve arkanıza yaslanın"*, *"Hepimiz oradaydık"* gibi çeviri blog klişeleri ekleme.
 - **İkame Kelime Tiki (Replacement Tic) Tuzağı:** "Kritik bir rol oynar" veya "kusursuz bir şekilde" gibi yapay ifadeleri silerken her cümleye refleks olarak "doğrudan", "aslında" veya "ciddi ölçüde" ekleme. Çoğu zaman zarfı tamamen atıp fiili yalnız bırakmak en doğal sonucu verir.
@@ -592,7 +594,7 @@ Doğal Türkçe tek bir kalıptan oluşmaz. Bir sözleşmedeki devrik cümle öz
 
 ## 1. Dokuz Boyutlu Register ve Üslup Matrisi
 
-Kullanıcı özel bir yazar örneği (few-shot) vermediğinde aşağıdaki 5 profilden uygun olanı seç:
+Kullanıcı özel bir yazar örneği (few-shot) vermediğinde aşağıdaki 6 profilden uygun olanı seç. Altıncı profil (kamu ve kurum içi yazışma) tablonun altında ayrıca anlatılır:
 
 | Boyut | 1. Blog / Deneme / Sosyal Medya | 2. Teknik / Mühendislik | 3. Kurumsal / SaaS / İş İletişimi | 4. Akademik / Resmî / Hukuki | 5. Edebî / Anlatı |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -605,6 +607,24 @@ Kullanıcı özel bir yazar örneği (few-shot) vermediğinde aşağıdaki 5 pro
 | **Devrik Cümle Oranı** | 400 kelimede 2-3 adet | Sıfır (0) | Sıfır (0) | Sıfır (0) | Anlatı ritmine göre doğal |
 | **Terim Tercihi** | Günlük karşılıklar veya okunuşa göre çekimli terim | Yerleşik İngilizce terim olduğu gibi (`endpoint'e`) | Sektör standardı, jargonsuz sade Türkçe | TDK ve alan terimleri (`veri tabanı, alan yazını`) | Türkçe duygu ve imge değeri yüksek sözcükler |
 | **Açılış Hamlesi** | Sahne, somut gözlem veya doğrudan soru | Doğrudan problem veya mimari karar | Temel değer önermesi veya ana mesaj | Araştırma problemi veya olgusal çerçeve | Atmosfer, detay veya iç ses |
+
+### 6. Kamu / Kurum İçi Yazışma
+
+Kamu kurumunun iç notları, resmî yazıları, faaliyet raporları ve sunum açıklamaları bu profile girer. Bu register'da dil modeli izleriyle kurum dilinin birçok özelliği örtüşür, çünkü modeller büyük ölçüde bu tür metinlerden öğrenmiştir. Adlaştırma (*"uyku düzeninin bozulması"*), edilgen çatı, `-mAktAdIr` ve kurum terimleri (*süreç, müdahale, farkındalık, danışmanlık hizmeti*) burada çeviri kokusu değil, beklenen biçimdir. Bunları temizlemek metni resmiyetten çıkarır.
+
+| Boyut | Kamu / Kurum İçi Yazışma |
+| :--- | :--- |
+| **Anlatıcı Kimliği** | Kurum adına yazan, nesnel uzman |
+| **Hitap** | 3. kişi ya da kurumsal "biz" (*Belediyemiz ... olarak*). İç yazışmada okura doğrudan seslenilmez |
+| **Cümle Uzunluğu & Burstiness** | Orta-uzun (15-30 kelime). Düşük dalgalanma bu register'da kusur değildir |
+| **Cümlecik Bağlama** | Ad-eylem, sıfat-fiil ve edat öbekleri (*nedeniyle, amacıyla, kapsamında*) |
+| **Kip Dağılımı** | `-mAktAdIr`, `-DIr`, geniş zaman ve edilgen. Art arda üç cümle aynı ekle bitmez |
+| **Söylem Parçacıkları** | Yok |
+| **Devrik Cümle Oranı** | Sıfır (0) |
+| **Terim Tercihi** | Kurum ve mevzuat terimleri korunur |
+| **Açılış Hamlesi** | Konu ve gerekçe |
+
+**Onarımın kapsamı:** Yalnızca gerçek kusurlar düzeltilir: koşutluk ve ortak öge hataları, yanlış noktalama ve TDK yazım hataları, slogan biçimli başlıklar, sahneleme girişleri (*"... günümüzde"*), dolgu kalıpları (*"İşte bu noktada"*), şişirmeler (*"hayati bir önem"*) ve kapanış klişeleri (*"bu yolculukta ilk adımı"*). Adlaştırma, edilgen çatı ve `-mAktAdIr` temizlenmez.
 
 ## 2. Aynı İddianın 4 Farklı Register'daki Doğal Yazımı
 
@@ -665,3 +685,17 @@ Kullanıcı özel bir yazar örneği (few-shot) vermediğinde aşağıdaki 5 pro
 
 **Sonra (Doğal İnsan Türkçesi - Akademik Register):**
 > Türkiye'de 2020-2024 döneminde hız kazanan yenilenebilir enerji yatırımları, enerji arz güvenliğinin yapısını da dönüştürmüştür. Enerji Bakanlığının verilerine göre güneş enerjisi kurulu gücü bu dönemde %112 büyümüştür.
+
+### Örnek 4: Kamu / Kurum İçi Yazışma (Kurum Dili Korunarak)
+
+**Önce (Tipik AI Türkçesi):**
+> Dijital Dünyada Kaybolmadan: Gençlerde Ekran Bağımlılığında Erken Farkındalık ve Aile Desteği
+>
+> Teknolojinin günlük yaşamın merkezinde yer aldığı günümüzde, gençlerin ekran karşısında geçirdiği süre giderek artıyor. [...] İşte bu noktada, sorunu henüz derinleşmeden fark etmek hayati bir önem taşıyor. Uyku düzeninin bozulması, ders başarısında düşüş, yüz yüze iletişimden kaçınma ve ekran süresine müdahale edildiğinde aşırı öfkelenme gibi belirtiler, erken uyarı sinyalleridir. [...] Yasaklayıcı ve suçlayıcı yaklaşımlar yerine; anlayışlı, kapsayıcı ve ailece yürütülen bir değişim süreci çok daha kalıcı sonuçlar verir. Ailenin sürece dahil olması [...]
+
+**Sonra (Kamu / Kurum İçi Register):**
+> Gençlerde Ekran Bağımlılığında Erken Farkındalık ve Aile Desteği
+>
+> Gençlerin ekran karşısında geçirdiği süre giderek artmaktadır. [...] Bu nedenle sorunun henüz derinleşmeden fark edilmesi büyük önem taşır. Gencin uyku düzeninin bozulması, ders başarısının düşmesi, yüz yüze iletişimden kaçınması ve ekran süresine müdahale edildiğinde aşırı öfkelenmesi gibi belirtiler erken uyarı işaretleridir. [...] Yasaklayıcı ve suçlayıcı yaklaşımlar yerine anlayışlı, kapsayıcı ve ailece yürütülen bir değişim süreci çok daha kalıcı sonuçlar verir. Ailenin sürece dâhil olması [...]
+
+**Ne korundu, ne değişti:** Adlaştırmalar, `-mAktAdIr`, "süreç" ve "müdahale" gibi kurum terimleri olduğu gibi kaldı. Değişenler slogan başlık, sahneleme girişi, *"İşte bu noktada"* dolgusu, *"hayati"* şişirmesi, belirtiler listesinin biçim birliği (ad-eylem ile isim karışıktı), *"yerine;"* noktalı virgülü ve *"dahil"* yazımı. *"gibi belirtiler"* ifadesi korundu. Listeyi kapalı bir sayıma çevirmek kaynakta olmayan bir kesinlik eklerdi.

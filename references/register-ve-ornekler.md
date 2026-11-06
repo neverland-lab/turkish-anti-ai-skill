@@ -4,7 +4,7 @@ Doğal Türkçe tek bir kalıptan oluşmaz. Bir sözleşmedeki devrik cümle öz
 
 ## 1. Dokuz Boyutlu Register ve Üslup Matrisi
 
-Kullanıcı özel bir yazar örneği (few-shot) vermediğinde aşağıdaki 5 profilden uygun olanı seç:
+Kullanıcı özel bir yazar örneği (few-shot) vermediğinde aşağıdaki 6 profilden uygun olanı seç. Altıncı profil (kamu ve kurum içi yazışma) tablonun altında ayrıca anlatılır:
 
 | Boyut | 1. Blog / Deneme / Sosyal Medya | 2. Teknik / Mühendislik | 3. Kurumsal / SaaS / İş İletişimi | 4. Akademik / Resmî / Hukuki | 5. Edebî / Anlatı |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -17,6 +17,24 @@ Kullanıcı özel bir yazar örneği (few-shot) vermediğinde aşağıdaki 5 pro
 | **Devrik Cümle Oranı** | 400 kelimede 2-3 adet | Sıfır (0) | Sıfır (0) | Sıfır (0) | Anlatı ritmine göre doğal |
 | **Terim Tercihi** | Günlük karşılıklar veya okunuşa göre çekimli terim | Yerleşik İngilizce terim olduğu gibi (`endpoint'e`) | Sektör standardı, jargonsuz sade Türkçe | TDK ve alan terimleri (`veri tabanı, alan yazını`) | Türkçe duygu ve imge değeri yüksek sözcükler |
 | **Açılış Hamlesi** | Sahne, somut gözlem veya doğrudan soru | Doğrudan problem veya mimari karar | Temel değer önermesi veya ana mesaj | Araştırma problemi veya olgusal çerçeve | Atmosfer, detay veya iç ses |
+
+### 6. Kamu / Kurum İçi Yazışma
+
+Kamu kurumunun iç notları, resmî yazıları, faaliyet raporları ve sunum açıklamaları bu profile girer. Bu register'da dil modeli izleriyle kurum dilinin birçok özelliği örtüşür, çünkü modeller büyük ölçüde bu tür metinlerden öğrenmiştir. Adlaştırma (*"uyku düzeninin bozulması"*), edilgen çatı, `-mAktAdIr` ve kurum terimleri (*süreç, müdahale, farkındalık, danışmanlık hizmeti*) burada çeviri kokusu değil, beklenen biçimdir. Bunları temizlemek metni resmiyetten çıkarır.
+
+| Boyut | Kamu / Kurum İçi Yazışma |
+| :--- | :--- |
+| **Anlatıcı Kimliği** | Kurum adına yazan, nesnel uzman |
+| **Hitap** | 3. kişi ya da kurumsal "biz" (*Belediyemiz ... olarak*). İç yazışmada okura doğrudan seslenilmez |
+| **Cümle Uzunluğu & Burstiness** | Orta-uzun (15-30 kelime). Düşük dalgalanma bu register'da kusur değildir |
+| **Cümlecik Bağlama** | Ad-eylem, sıfat-fiil ve edat öbekleri (*nedeniyle, amacıyla, kapsamında*) |
+| **Kip Dağılımı** | `-mAktAdIr`, `-DIr`, geniş zaman ve edilgen. Art arda üç cümle aynı ekle bitmez |
+| **Söylem Parçacıkları** | Yok |
+| **Devrik Cümle Oranı** | Sıfır (0) |
+| **Terim Tercihi** | Kurum ve mevzuat terimleri korunur |
+| **Açılış Hamlesi** | Konu ve gerekçe |
+
+**Onarımın kapsamı:** Yalnızca gerçek kusurlar düzeltilir: koşutluk ve ortak öge hataları, yanlış noktalama ve TDK yazım hataları, slogan biçimli başlıklar, sahneleme girişleri (*"... günümüzde"*), dolgu kalıpları (*"İşte bu noktada"*), şişirmeler (*"hayati bir önem"*) ve kapanış klişeleri (*"bu yolculukta ilk adımı"*). Adlaştırma, edilgen çatı ve `-mAktAdIr` temizlenmez.
 
 ## 2. Aynı İddianın 4 Farklı Register'daki Doğal Yazımı
 
@@ -77,3 +95,17 @@ Kullanıcı özel bir yazar örneği (few-shot) vermediğinde aşağıdaki 5 pro
 
 **Sonra (Doğal İnsan Türkçesi - Akademik Register):**
 > Türkiye'de 2020-2024 döneminde hız kazanan yenilenebilir enerji yatırımları, enerji arz güvenliğinin yapısını da dönüştürmüştür. Enerji Bakanlığının verilerine göre güneş enerjisi kurulu gücü bu dönemde %112 büyümüştür.
+
+### Örnek 4: Kamu / Kurum İçi Yazışma (Kurum Dili Korunarak)
+
+**Önce (Tipik AI Türkçesi):**
+> Dijital Dünyada Kaybolmadan: Gençlerde Ekran Bağımlılığında Erken Farkındalık ve Aile Desteği
+>
+> Teknolojinin günlük yaşamın merkezinde yer aldığı günümüzde, gençlerin ekran karşısında geçirdiği süre giderek artıyor. [...] İşte bu noktada, sorunu henüz derinleşmeden fark etmek hayati bir önem taşıyor. Uyku düzeninin bozulması, ders başarısında düşüş, yüz yüze iletişimden kaçınma ve ekran süresine müdahale edildiğinde aşırı öfkelenme gibi belirtiler, erken uyarı sinyalleridir. [...] Yasaklayıcı ve suçlayıcı yaklaşımlar yerine; anlayışlı, kapsayıcı ve ailece yürütülen bir değişim süreci çok daha kalıcı sonuçlar verir. Ailenin sürece dahil olması [...]
+
+**Sonra (Kamu / Kurum İçi Register):**
+> Gençlerde Ekran Bağımlılığında Erken Farkındalık ve Aile Desteği
+>
+> Gençlerin ekran karşısında geçirdiği süre giderek artmaktadır. [...] Bu nedenle sorunun henüz derinleşmeden fark edilmesi büyük önem taşır. Gencin uyku düzeninin bozulması, ders başarısının düşmesi, yüz yüze iletişimden kaçınması ve ekran süresine müdahale edildiğinde aşırı öfkelenmesi gibi belirtiler erken uyarı işaretleridir. [...] Yasaklayıcı ve suçlayıcı yaklaşımlar yerine anlayışlı, kapsayıcı ve ailece yürütülen bir değişim süreci çok daha kalıcı sonuçlar verir. Ailenin sürece dâhil olması [...]
+
+**Ne korundu, ne değişti:** Adlaştırmalar, `-mAktAdIr`, "süreç" ve "müdahale" gibi kurum terimleri olduğu gibi kaldı. Değişenler slogan başlık, sahneleme girişi, *"İşte bu noktada"* dolgusu, *"hayati"* şişirmesi, belirtiler listesinin biçim birliği (ad-eylem ile isim karışıktı), *"yerine;"* noktalı virgülü ve *"dahil"* yazımı. *"gibi belirtiler"* ifadesi korundu. Listeyi kapalı bir sayıma çevirmek kaynakta olmayan bir kesinlik eklerdi.
