@@ -67,6 +67,7 @@ Sola dallanma Türkçenin doğal yönüdür ama sınırsız değildir. Bir adın
 | **`ki` ile Kurulan Tümleç Yan Cümlesi** | Görüyoruz ki kullanıcılar bu özelliği kullanmıyor. | Kullanıcıların bu özelliği kullanmadığını görüyoruz. |
 
 - **`öyle ... ki` bir hata değildir.** *"Öyle bir mimari tasarladık ki yüksek trafikte bile gecikme olmuyor."* yerleşik bir Türkçe sonuç yapısıdır ve sıfat-fiile çevrilince vurgu kaybolur. Sorun ancak metinde sık tekrar ederse ortaya çıkar.
+- **`ki` genel bir şüphe işareti değildir.** Derlemde Türk yazarlar `ki` bağlacını dil modellerinden daha sık kullanıyor (1000 kelimede 2,7-3,5, modellerde 0-1,3). En sık kalıplar *var ki, dedi ki, demek ki, öyle ki, kaldı ki, elbette ki, yazık ki*. Şüpheli olan yalnızca İngilizce *that*-tümlecini kopyalayan *"Görüyoruz ki ..."*, *"Belirtmek gerekir ki ..."* tipidir.
 - **Sıfat-fiil seçimi `[Dil bilgisi]`:** Nitelenen ad yan cümlenin öznesiyse `-(y)An` kullanılır (*kodu yazan geliştirici*). Nesnesi ya da başka bir ögesiyse `-DIk` veya `-(y)AcAk` ile iyelik eki kullanılır (*geliştiricinin yazdığı kod*, *yarın kuracağımız sunucu*). Bu ikisini karıştırmak cümleyi bozar: *"geliştiricinin yazan kod"* yanlıştır.
 
 ## 2. Bağlaç (`ve`) Yerine Ulaç (Zarf-Fiil) Sistemi
@@ -137,7 +138,7 @@ Yüklemden sonraki konum, bağlamdan bilinen ve ikinci planda kalan bilgiye ayr�
 - **Düz:** *"Kimse bu uzun hata raporlarını sonuna kadar okumuyor."*
 - **Devrik (blog):** *"Kimse sonuna kadar okumuyor bu uzun hata raporlarını."* (Raporlar bağlamda zaten geçtiği için yüklemden sonraya alınabilir.)
 - **Sınır `[Dil bilgisi]`:** Yeni bilgi ve belirtisiz nesne yüklemden sonraya alınmaz. *"Ahmet'e gönderdim rapor."* bozuk bir cümledir.
-- **Kota `[Üslup]`:** Teknik, kurumsal ve akademik register'larda devrik cümle kullanma. Blog/deneme register'ında devrik cümleyi seyrek tut, her cümleyi devrik yapmak yeni bir yapay tike dönüşür. 400 kelimede 2-3 devrik cümle yol gösterici bir tahmindir, ölçülmüş bir eşik değildir.
+- **Kota `[Üslup]`:** Teknik, kurumsal ve akademik register'larda devrik cümle kullanma. Blog/deneme ve anlatı register'ında devrik cümleyi seyrek tut, her cümleyi devrik yapmak yeni bir yapay tike dönüşür. 18 Türk yazarının 20 kitabından oluşan derlemde anlatı ve deneme cümlelerinin yaklaşık %9-13'ü devrik, model metinlerinde %1-8 (sezgisel ölçüm, `derlem-olcumleri.md`). Yazarlarda yüklemden sonra gelen kısım %83 oranında 1-2 kelimedir: zamir (*beni, ona*), işaret sözü (*bu*), özel ad ya da *belki, zaten, hiç* gibi bir zarf.
 
 ## 5. Zamir Düşürme (Pro-Drop) ve `"Bir"` / `"Kendi"` Yoğunluğu
 

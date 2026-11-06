@@ -96,6 +96,22 @@ Kamu kurumunun iç notları, resmî yazıları, faaliyet raporları ve sunum aç
 **Sonra (Doğal İnsan Türkçesi - Akademik Register):**
 > Türkiye'de 2020-2024 döneminde hız kazanan yenilenebilir enerji yatırımları, enerji arz güvenliğinin yapısını da dönüştürmüştür. Enerji Bakanlığının verilerine göre güneş enerjisi kurulu gücü bu dönemde %112 büyümüştür.
 
+### Örnek 5: Ritim Onarımı (Cümle Boyları Gösterilerek)
+
+Dil modelinin ritim kusuru tek tek cümlelerde değil, paragrafın bütününde görünür. Kural okumak yetmez, cümle boylarını gerçekten saymak gerekir.
+
+**Önce (deneme, cümle boyları: 18, 19, 18, 23 kelime, paragraf içi CoV yaklaşık 0,10):**
+> Modern insanın en büyük paradoksu, sınırsız özgürlük ve seçenek bolluğu içinde derin bir yersiz yurtsuzluk hissiyle kuşatılmış olmasıdır. Her şeyin hızla tüketildiği, kimliklerin bile anlık tercihlere indirgendiği bu sıvılaşmış çağda birey, varoluşsal bir ağırlık merkezine ihtiyaç duyar. İşte gelenek, tam da bu noktada bir sığınak veya kaçış alanı olarak değil, bir "zemin" olarak devreye girer. İnsana dünyaya fırlatılmış yalnız bir atom olmadığını, kendisinden önce başlayan ve kendisinden sonra da devam edecek olan büyük bir anlatının parçası olduğunu hatırlatır.
+
+**Sonra (cümle boyları: 13, 5, 16, 7, 20 kelime, paragraf içi CoV yaklaşık 0,46):**
+> Modern insan sınırsız özgürlüğün ve seçenek bolluğunun ortasında derin bir yersiz yurtsuzluk duyuyor. En büyük paradoksu da bu. Her şeyin hızla tüketildiği, kimliklerin bile anlık tercihlere indirgendiği bu çağda birey bir ağırlık merkezi arar. Gelenek burada bir zemin olarak devreye girer. İnsana dünyaya fırlatılmış yalnız bir atom olmadığını, kendisinden önce başlayıp kendisinden sonra da sürecek büyük bir anlatının parçası olduğunu hatırlatır.
+
+**Yöntem:**
+1. Paragraftaki cümlelerin kelime sayısını yaz.
+2. Art arda iki ya da üç cümle birbirine yakın uzunluktaysa birinin yargısını kısa bir cümleye ayır (*"En büyük paradoksu da bu."*) ya da iki cümleyi ulaçla birleştir.
+3. Süsü at, yargıyı bırak: *"İşte ... tam da bu noktada"* dolgusu ve *"sığınak değil, zemin"* negatif paralelliği silindi, *"zemin"* yargısı kaldı.
+4. Kaynakta olmayan cümle ekleme. Kısa cümle kaynaktaki bir yargıdan (*"en büyük paradoksu"*) çıkarıldı.
+
 ### Örnek 4: Kamu / Kurum İçi Yazışma (Kurum Dili Korunarak)
 
 **Önce (Tipik AI Türkçesi):**

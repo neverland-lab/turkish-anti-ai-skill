@@ -168,6 +168,38 @@ def split_turkish_sentences(text: str) -> list:
     return [s.replace("<DOT>", ".").strip() for s in raw_sentences if len(s.strip().split()) > 1]
 
 
+# Derlem ölçümleri (references/derlem-olcumleri.md): insan metinlerinde paragraf içi CoV ortancası 0,47-0,49,
+# model metinlerinde 0,26-0,38. 15-22 kelime bandındaki cümle oranı insanda %13-17, uzun cümleli modellerde %29-49.
+PARAGRAPH_COV_TARGET = 0.40
+BAND_15_22_WARN = 0.25
+
+
+def paragraph_rhythm(text: str) -> dict:
+    """Paragraf içi cümle uzunluğu değişkenliği. Yalnızca en az 3 cümleli paragraflar sayılır."""
+    covs = []
+    all_lengths = []
+    for par in re.split(r"\n\s*\n|\n(?=\S)", text):
+        if re.match(r"^\s*(#|[-*>|]|\d+\.)", par):
+            continue                                    # başlık, liste, alıntı, tablo
+        lengths = [len(s.split()) for s in split_turkish_sentences(par)]
+        all_lengths.extend(lengths)
+        if len(lengths) >= 3:
+            mean_len = sum(lengths) / len(lengths)
+            var = sum((x - mean_len) ** 2 for x in lengths) / len(lengths)
+            covs.append(math.sqrt(var) / mean_len if mean_len else 0.0)
+    covs.sort()
+    median = round(covs[len(covs) // 2], 2) if covs else None
+    band = round(sum(15 <= n <= 22 for n in all_lengths) / len(all_lengths), 2) if all_lengths else None
+    return {
+        "paragraph_count_measured": len(covs),
+        "paragraph_cov_median": median,
+        "paragraph_cov_below_target_ratio": round(sum(c < PARAGRAPH_COV_TARGET for c in covs) / len(covs), 2) if covs else None,
+        "band_15_22_ratio": band,
+        "flat_rhythm_warning": bool(covs) and median < PARAGRAPH_COV_TARGET,
+        "band_15_22_warning": band is not None and len(all_lengths) >= 8 and band > BAND_15_22_WARN,
+    }
+
+
 def analyze_text(text: str, register: str = None) -> dict:
     register_key = resolve_register(register)
     profile = REGISTER_PROFILES[register_key] if register_key else DEFAULT_PROFILE
@@ -220,6 +252,7 @@ def analyze_text(text: str, register: str = None) -> dict:
         "sentence_lengths": sent_lengths,
         "sentence_length_cov": cov,
         "low_burstiness_warning": cov < 0.35 and len(sentences) >= 3,
+        "rhythm": paragraph_rhythm(text),
         "mektedir_per_100_words": mektedir_per_100,
         "high_mektedir_warning": mektedir_per_100 > profile["mektedir_max"],
         "total_flags": len(findings),
@@ -250,6 +283,13 @@ def main():
         print(f"=== Turkish Anti-AI Denetim Raporu: {path.name} ===")
         print(f"Kelime Sayısı: {report['word_count']} | Cümle Sayısı: {report['sentence_count']}")
         print(f"Cümle Uzunluğu Değişim Katsayısı (Burstiness CoV): {report['sentence_length_cov']} (İnsan hedefi: >= 0.40)")
+        rh = report["rhythm"]
+        if rh["paragraph_cov_median"] is not None:
+            print(f"Paragraf İçi CoV (ortanca, {rh['paragraph_count_measured']} paragraf): {rh['paragraph_cov_median']} | "
+                  f"Derlem: insan 0,47-0,49, model 0,26-0,38 | {'Uyarı: düz ritim' if rh['flat_rhythm_warning'] else 'Uygun'}")
+        if rh["band_15_22_ratio"] is not None:
+            print(f"15-22 Kelimelik Cümle Oranı: {rh['band_15_22_ratio']} | Derlem: insan 0,13-0,17, uzun cümleli modeller 0,29-0,49 | "
+                  f"{'Uyarı' if rh['band_15_22_warning'] else 'Uygun'}")
         lo, hi = report["mektedir_target_range"]
         print(f"Register: {report['register_label']}")
         print(f"'-mAktAdIr' Yoğunluğu (100 kelimede): {report['mektedir_per_100_words']} | Hedef: {lo}-{hi} | {'Uygun' if report['mektedir_in_range'] else 'Hedef dışı'}")
