@@ -13,7 +13,7 @@ from pathlib import Path
 
 TIER1_PATTERNS = [
     (r"\byadsınamaz\b|\binkar\s+edilemez\b", "Tier-1 Klişe: 'yadsınamaz / inkar edilemez' (undeniable calque)"),
-    (r"\badeta\b", "Tier-1 Klişe: 'adeta' (aşırı benzetme zarfı)"),
+    (r"\b[aâ]deta\b", "Tier-1 Klişe: 'âdeta / adeta' (aşırı benzetme zarfı)"),
     (r"\bderinlemesine\s+(?:inmek|incelemek|bakmak|ele\s+almak|analiz)\b|\bmercek\s+altına\s+al", "Tier-1 Klişe: 'derinlemesine inmek / mercek altına almak' (delve into calque)"),
     (r"\bkritik\s+(?:bir\s+)?(?:rol\s+oyna|öneme\s+sahip)|\bhayati\s+(?:bir\s+)?öneme\s+sahip", "Tier-1 Klişe: 'kritik bir rol oynamak / öneme sahip olmak'"),
     (r"\bgeniş\s+bir\s+yelpaze|\bzengin\s+bir\s+(?:doku|mozaik)\b", "Tier-1 Klişe: 'geniş bir yelpaze / zengin bir doku-mozaik'"),
@@ -42,9 +42,9 @@ TIER2_AND_SYNTAX_PATTERNS = [
 PUNCTUATION_AND_TDK_PATTERNS = [
     (r"—", "P2 Noktalama: Uzun çizgi (em-dash '—') kullanımı (TDK diyalog dışında yasaklar)"),
     (r"\w+[–]\w+", "P2 Noktalama: Aralıkta orta çizgi (en-dash '–') kullanımı (TDK kısa çizgi '-' şart koşar)"),
-    (r",\s*(?:ama|fakat|lakin|veya|ya da)\b", "P2 Noktalama: Bağlaçtan ('ama/fakat/veya/ya da') önce virgül"),
+    (r",\s*(?:ve|veya|yahut)\b|\b(?:ve|veya|yahut),", "P2 TDK Noktalama: 've / veya / yahut' bağlacından önce veya sonra virgül (TDK: konmaz)"),
+    (r",\s*(?:ama|fakat|lakin|ya da)\b", "P2 Üslup: 'ama / fakat / lakin / ya da' öncesi refleks virgül (TDK kuralı değil, İngilizce ', but' alışkanlığı)"),
     (r"\b(?:[01]?\d|2[0-3]):[0-5]\d\b", "P2 TDK Saat Hatası: Saat arasında iki nokta (':') kullanımı (TDK tek nokta '.' şart koşar, örn: 14.30)"),
-    (r"\b\d{1,2}\.00'da\b", "P2 TDK Saat Eki Hatası: Tam saatlerde '00' okunmaz ('13.00'da' değil, '13.00'te' veya '14.00'te')"),
     (r"%\d+\.\d+", "P2 TDK Sayı Hatası: Yüzde ondalık ayracı olarak nokta kullanımı (TDK virgül şart koşar, örn: %112,5)"),
     (r"\b(?:birşey|herşey|hiçbirşey|yada|bir çok|bir kaç|pekçok|ard arda|yanısıra|önsöz|önyargı|işbirliği|farketmek|terketmek|halbu ki|oysa ki)\b", "P2 TDK İmla Hatası: Birleşik/ayrı yazılan kelime hatası"),
 ]
@@ -53,6 +53,46 @@ PUNCTUATION_AND_TDK_PATTERNS = [
 CASE_SENSITIVE_PATTERNS = [
     (r"\b(?:cache'ı|cache'de|cache'dan|SQL'ı|SQL'da|SQL'dan|JSON'i|JSON'de|queue'ya|React'ı|React'da|Node\.js'ı|Node\.js'da|GitHub'de|Google'de|URL'ı|URL'da)\b", "P2 Fonetik Ek Hatası: Yabancı terime Türkçe okunuşu yerine yazılışına göre ek getirilmesi"),
 ]
+
+
+# Saate gelen ek, saatin Türkçe okunuşunun son sözcüğüne uyar (TDK örnekleri: 13.00'te, 11.00'de, 17.30'da, 09.15'te).
+_UNITS = {1: "bir", 2: "iki", 3: "üç", 4: "dört", 5: "beş", 6: "altı", 7: "yedi", 8: "sekiz", 9: "dokuz"}
+_TENS = {1: "on", 2: "yirmi", 3: "otuz", 4: "kırk", 5: "elli"}
+_BACK_VOWELS = set("aıou")
+_FRONT_VOWELS = set("eiöü")
+_HARD_CONSONANTS = set("fstkçşhp")
+TIME_SUFFIX_RE = re.compile(r"\b(\d{1,2})\.(\d{2})'(d[ae]n?|t[ae]n?)\b")
+
+
+def _last_word_of_number(n: int) -> str:
+    if n == 0:
+        return "sıfır"
+    return _UNITS[n % 10] if n % 10 else _TENS[n // 10]
+
+
+def expected_time_suffix(hour: int, minute: int, ablative: bool) -> str:
+    """'14.30' + bulunma -> 'da' (otuzda). Dakika 00 ise saat okunur."""
+    word = _last_word_of_number(minute if minute else hour)
+    last_vowel = next(ch for ch in reversed(word) if ch in _BACK_VOWELS | _FRONT_VOWELS)
+    vowel = "a" if last_vowel in _BACK_VOWELS else "e"
+    consonant = "t" if word[-1] in _HARD_CONSONANTS else "d"
+    return consonant + vowel + ("n" if ablative else "")
+
+
+def time_suffix_findings(text: str) -> list:
+    findings = []
+    for m in TIME_SUFFIX_RE.finditer(text):
+        hour, minute, suffix = int(m.group(1)), int(m.group(2)), m.group(3)
+        if hour > 24 or minute > 59:
+            continue
+        expected = expected_time_suffix(hour, minute, suffix.endswith("n"))
+        if suffix != expected:
+            findings.append({
+                "rule": f"P2 TDK Saat Eki Hatası: Ek, saatin okunuşuna uymalı ('{m.group(1)}.{m.group(2)}'{expected}')",
+                "match": m.group(0),
+                "position": m.start(),
+            })
+    return findings
 
 
 def split_turkish_sentences(text: str) -> list:
@@ -80,6 +120,8 @@ def analyze_text(text: str) -> dict:
                 "match": match.group(0),
                 "position": match.start(),
             })
+
+    findings.extend(time_suffix_findings(text))
 
     words = re.findall(r"\b\w+\b", text)
     word_count = max(len(words), 1)
