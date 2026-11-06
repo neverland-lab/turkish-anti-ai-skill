@@ -85,6 +85,7 @@ Sola dallanma Türkçenin doğal yönüdür ama sınırsız değildir. Bir adın
 - **Sadakat sınırı `[Dil bilgisi]`:** Ulaç iki olay arasında zaman ya da neden bağı kurar. Kaynakta iki cümle yalnızca yan yana duruyorsa ulaçla bağlayıp yeni bir nedensellik uydurma. Virgülle ya da ayrı cümle olarak bırak.
 - **Gizli özne `[Dil bilgisi]`:** Ulaçlı yan cümlenin öznesi söylenmemişse okur onu ana cümlenin öznesi sanar. *"Veriyi çekip sistem çöktü."* cümlesi, veriyi sistemin çektiğini söyler. Özne farklıysa ya açıkça yaz ya da iki cümle kur: *"Veriyi çektik, ardından sistem çöktü."*
 - **Olumsuzluk kapsamı `[Dil bilgisi]`:** Ana yüklemdeki olumsuzluk `-(y)Ip` ile bağlanan eyleme de yayılabilir. *"Raporu okuyup onaylamadı."* hem "okudu ama onaylamadı" hem de "ikisini de yapmadı" diye anlaşılabilir. Yalnızca ikinci eylem olumsuzsa açık yaz: *"Raporu okudu ama onaylamadı."*
+- **Zıtlık ulaçla kurulmaz `[Dil bilgisi]`:** `-(y)Ip` sıralama ve bağlama bildirir, zıtlık bildirmez. *"Komşunun sesini duyuyoruz ama adını bilmiyoruz."* cümlesi *"Komşunun sesini duyup adını bilmiyoruz."* olursa karşıtlık kaybolur. Zıtlık için *ama*, *oysa* ya da `-(y)ken` kullan (*"Sesini duyarken adını bilmiyoruz."*).
 - **Virgül `[TDK]`:** Ulaçtan sonra virgül konmaz. Yalnızca art arda gelen ulaçlar virgülle ayrılır.
 
 ## 3. Ek Eylem (`-DIr`) ve `-mAktAdIr`: İki Ayrı Sorun

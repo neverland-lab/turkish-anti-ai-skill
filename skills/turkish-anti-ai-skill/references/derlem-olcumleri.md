@@ -6,7 +6,7 @@ Bu dosyadaki sayılar skill'in ritim, noktalama ve devrik kurallarının dayana�
 
 - **İnsan derlemi:** Türkçe yazmış 18 yazardan 20 kitap (13 kurmaca, 7 deneme/anı/inceleme). Çeviri eserler bilerek dışarıda bırakıldı, çünkü çeviri Türkçesi skill'in temizlemeye çalıştığı izleri taşır. Kitapların tamamı değil, her kitaptan %20, %50 ve %80 noktalarındaki 8'er sayfalık pencereler alındı (metin dosyalarında aynı noktalardan 4.000'er kelime). Örneklem toplamı diyalog dâhil yaklaşık 180.000 kelimedir. Yazarlar: Adalet Ağaoğlu, İhsan Oktay Anar, Oğuz Atay, Enis Batur, Halide Edib Adıvar, Memduh Şevket Esendal, Sait Faik Abasıyanık, Cemil Meriç, Murathan Mungan, Aziz Nesin, Orhan Pamuk (2), Peyami Safa (2), Sabahattin Ali, Ahmet Hamdi Tanpınar, Hasan Ali Toptaş, Ayfer Tunç, Ahmet Ümit, Çetin Altan.
 - **Model derlemi:** Beş modele aynı 8 istek verildi (4 kurmaca, 4 deneme, her biri yaklaşık 400-500 kelime): Gemini 4 Argon, Gemini 3.8 Flash, GPT-OSS 120B, Claude Sonnet 5.5, Claude Opus 5.5. İsteklerde "doğal yaz" ya da "yapay yaz" gibi yönlendirme yoktu.
-- **Ölçüm:** Diyalog paragrafları çıkarıldı, yalnızca anlatı cümleleri sayıldı. Biçim bilgisi (morfoloji) çözümleyicisi kullanılmadı, ölçümler düzenli ifadeye dayalı sezgisel ölçümlerdir. Devrik cümle sezgiseli 40 cümlelik bir doğrulama setinde bağımsız bir okurla %75 uyuştu. Bu yüzden devrik oranları kesin değer değil, göreli karşılaştırma içindir.
+- **Ölçüm:** Diyalog paragrafları çıkarıldı, yalnızca anlatı cümleleri sayıldı. Ritim, metin boyunca art arda gelen her 5 cümlelik pencerenin değişim katsayısıyla ölçüldü. Kitaplardan çıkarılan metinlerde gerçek paragraf sınırları güvenilir olmadığı için paragraf temelli ölçüm kullanılmadı. Biçim bilgisi (morfoloji) çözümleyicisi kullanılmadı, ölçümler düzenli ifadeye dayalı sezgisel ölçümlerdir. Devrik cümle sezgiseli 40 cümlelik bir doğrulama setinde bağımsız bir okurla %75 uyuştu. Bu yüzden devrik oranları kesin değer değil, göreli karşılaştırma içindir.
 
 ## Sonuçlar (ortanca değerler)
 
@@ -15,8 +15,8 @@ Bu dosyadaki sayılar skill'in ritim, noktalama ve devrik kurallarının dayana�
 | Ortanca cümle uzunluğu (kelime) | 8 | 10 | 12,5-18 | kurmaca 6,5-7, deneme 10,5 |
 | 15-22 kelime bandındaki cümle oranı | %13 | %17 | %29-49 | %3-13 |
 | 6 kelime ve altı cümle oranı | %40 | %23 | %0-13 | %18-50 |
-| Paragraf içi CoV (cümle uzunluğu değişim katsayısı) | 0,49 | 0,47 | 0,26-0,36 | 0,37-0,38 |
-| CoV'si 0,40'ın altında kalan paragraf oranı | %31 | %36 | %58-92 | %58-69 |
+| 5 cümlelik pencerede CoV (cümle uzunluğu değişim katsayısı) | 0,47 | 0,44 | 0,28-0,41 | 0,35-0,40 |
+| CoV'si 0,40'ın altında kalan pencere oranı | %30 | %38 | %47-90 | %51-76 |
 | Devrik cümle oranı (sezgisel) | %13 | %9 | %1-8 | %3-7 |
 | Soru işareti (1000 kelimede) | 10,9 | 3,3 | 0-2,3 | 0-1,5 |
 | Ünlem (1000 kelimede) | 3,7 | 0,6 | 0 | 0 |
@@ -29,7 +29,7 @@ Bu dosyadaki sayılar skill'in ritim, noktalama ve devrik kurallarının dayana�
 
 ## Yorum
 
-1. **Ortak iz ritimdir, cümle uzunluğu değil.** Bütün modellerde paragraf içi değişkenlik insan yazarlarınkinden düşük. Modellerin bir kısmı uzun cümlelere, bir kısmı kısa cümlelere yığılıyor. Bu yüzden skill'in ritim kuralı "kısa cümle ekle" değil, "ardışık cümlelerin boyunu çeşitlendir" biçiminde yazıldı.
+1. **Ortak iz ritimdir, cümle uzunluğu değil.** Bütün modellerde art arda gelen cümlelerin boy değişkenliği insan yazarlarınkinden düşük. En yakın olanlar Claude Opus ve Gemini Flash (kurmacada 0,40-0,41), en uzak olanlar GPT-OSS ve Gemini 4 denemeleri (0,29-0,31). Modellerin bir kısmı uzun cümlelere, bir kısmı kısa cümlelere yığılıyor. Bu yüzden skill'in ritim kuralı "kısa cümle ekle" değil, "ardışık cümlelerin boyunu çeşitlendir" biçiminde yazıldı.
 2. **15-22 bandına yığılma Gemini ve GPT tipi modellerin işaretidir.** Claude tipi modeller ise kurmacada insan yazarlardan bile kısa cümle kurar.
 3. **Modeller anlatıda neredeyse hiç soru, ünlem ve üç nokta kullanmaz.** Türk yazarların anlatısında bunlar olağandır.
 4. **Noktalı virgül tek başına yapay zekâ işareti değildir.** Bazı yazarlar sık kullanır (bir yazarda 1000 kelimede 14). Ama Gemini ve GPT tipi modellerde sıklık 2-6 kat yüksektir.
