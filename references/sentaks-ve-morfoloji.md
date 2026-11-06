@@ -117,7 +117,7 @@ Aynı eki alan sıralı yüklemlerde Türkçe eki yalnızca sonuncuya getirir. E
 
 ### D. Doz
 
-Akademik register'da `-mAktAdIr` ve `-DIr` korunur ama her cümleyi bunlarla bitirme, geniş zamanla (`-Ar/-Ir`) nöbetleşe kullan. Hakemli Türkçe makaleler için şimdiye kadar önerilen yoğunluk aralıkları (100 kelimede `-mAktAdIr` için 0,4-2,3, `-DIr` için 2,3-4,0) **deneysel değerlerdir, bir derlem çalışmasıyla doğrulanmamıştır.** Kesin eşik gibi kullanma.
+Akademik register'da `-mAktAdIr` ve `-DIr` korunur, sorun eklerin kendisi değil tekrarıdır. Art arda üç cümleyi aynı ekle (`-mektedir`, `-mıştır`, `-dır`) bitirme, geniş zaman (`-Ar/-Ir`) ve `-mIştIr` ile nöbetleşe kullan. Başlangıç hedefi olarak 100 kelimede yaklaşık 0,5-2,5 `-mAktAdIr` kullanılabilir. **Bu aralık bir derlem ölçümüne dayanmaz**, dedektörün `--register` seçeneğiyle değiştirilebilen varsayılan değeridir. Kesin eşik gibi kullanma.
 
 ## 4. Vurgu Yuvası (Yüklem Önü) ve Devrik Cümle
 
@@ -231,3 +231,82 @@ Makine Türkçesi her şeyi baştan mutlak bir kesinlikle biliyormuş gibi yazar
 - **Makine:** *"Birinci yöntem hızlıdır, ikinci yöntem yavaştır."*
 - **İnsan:** *"Birinci yöntem hızlı, ikincisi ise yavaş."*
 - **Sınır `[Üslup]`:** Her parçacık silme testinden geçmeli. Kaldırıldığında anlamdan ya da tondan bir şey eksilmiyorsa o parçacık süstür, silinir.
+
+## 10. Koşutluk: Cümlenin Simetrisi
+
+`ve`, virgül ya da ikili bağlaçla (`hem ... hem`, `ne ... ne`) bağlanan ögeler aynı görevi taşıyorsa aynı biçimde kurulur. Birden fazla yükleme ortak bağlanan öge de her yüklemin istediği biçime uymalıdır. Türkçe dil bilgisi kitaplarında bu hatalar "anlatım bozukluğu" başlığı altında geçer.
+
+Dil modeli bu hataları sık yapar, çünkü İngilizcede ad hâl eki almaz. *"We review and include user feedback"* cümlesinde iki eylem tek nesneyi rahatça paylaşır. Türkçede ise her yüklem nesnesine kendi hâl ekini dayatır.
+
+### A. Ortak öge her yüklemin hâline uymalı `[Dil bilgisi]`
+
+Bir ögeyi iki yükleme ortak bağlamak ancak iki yüklem de aynı hâli istiyorsa mümkündür. Biri belirtme (`-(y)I`), öteki yönelme (`-(y)A`) istiyorsa ikinci yükleme ögeyi zamirle yeniden bağla:
+
+- **Bozuk:** *"Kullanıcı geri bildirimlerini inceliyor ve yol haritamızda yer veriyoruz."* (`incelemek` neyi, `yer vermek` neye ister.)
+- **Doğru:** *"Kullanıcı geri bildirimlerini inceliyor ve bunlara yol haritamızda yer veriyoruz."*
+- **Bozuk:** *"Açık kaynak kütüphanelere güveniyoruz ama güvenlik taramasından geçirmeden kullanmıyoruz."*
+- **Doğru:** *"Açık kaynak kütüphanelere güveniyoruz ama onları güvenlik taramasından geçirmeden kullanmıyoruz."*
+
+Hâl ekleri aynı olsa bile ortak öge ikinci yükleme anlamca uymayabilir:
+
+- **Anlam kayması:** *"Müşteri verilerinin gizliliğini önemsiyor ve üçüncü taraflarla paylaşmıyoruz."* (Paylaşılmayan şey gizlilik olur.)
+- **Doğru:** *"Müşteri verilerinin gizliliğini önemsiyor ve bu verileri üçüncü taraflarla paylaşmıyoruz."*
+
+### B. Ortak özne her yüklemin çatısına uymalı `[Dil bilgisi]`
+
+Aynı özne bir etken, bir edilgen yükleme birlikte bağlanamaz. Ulaçlı yan cümlede de durum aynıdır (bkz. Bölüm 2, gizli özne):
+
+- **Bozuk:** *"Sistem gelen istekleri doğruladıktan sonra veri tabanına kaydedilir."* (Kaydedilen sistem olur.)
+- **Doğru:** *"Sistem gelen istekleri doğruladıktan sonra veri tabanına kaydeder."*
+- **Bozuk:** *"Şirketimiz karbon ayak izini azaltarak sürdürülebilirlik hedeflerine katkı sağlandı."*
+- **Doğru:** *"Şirketimiz karbon ayak izini azaltarak sürdürülebilirlik hedeflerine katkıda bulundu."*
+- **Hata olmayan durum:** Öznesi ayrı iki cümle farklı çatıda olabilir. *"Ekip testleri tamamladı ve yeni sürüm yayına alındı."* doğrudur.
+
+### C. Ortak ek ancak her kanada uyuyorsa düşürülür `[Dil bilgisi]`
+
+Grup çekimi (Bölüm 3C) ekin bütün kanatlarda aynı olmasını gerektirir. Kişi eki ya da olumsuzluk farklıysa ek düşürülemez:
+
+- **Bozuk (kişi):** *"Pazarlama ekibi yeni kampanyalara, siz ise müşteri bağlılığına odaklanacak."*
+- **Doğru:** *"Pazarlama ekibi yeni kampanyalara odaklanacak, siz ise müşteri bağlılığına odaklanacaksınız."*
+- **Bozuk (olumsuzluk):** *"Model hızlı ve doğruluğu yeterli değildi."* (`değil` grup çekiminde bütün kanatlara yayılır, cümle modelin hızlı olmadığını da söyler.)
+- **Doğru:** *"Model hızlıydı ama doğruluğu yeterli değildi."*
+
+### D. Sıralanan ögeler aynı biçimde kurulmalı `[Dil bilgisi]`
+
+Eş görevli ögeler yalın ad-eylem (`-mAk`), iyelik eki almış ad-eylem (`-mAsI`, `-(y)IşI`) ve ad öbeği arasında karışırsa liste dağılır, ögelerden biri ya da birkaçı ortak yükleme bağlanamaz:
+
+- **Bozuk:** *"Bu güncellemenin amaçları arayüzü hızlandırmak, bellek sızıntılarının giderilmesi ve daha kolay bir kurulum."*
+- **Doğru:** *"Bu güncellemenin amaçları arayüzü hızlandırmak, bellek sızıntılarını gidermek ve kurulumu kolaylaştırmak."*
+- **Bozuk:** *"İyi bir uzaktan çalışma düzeni için düzenli iletişim kurmak, görev dağılımında şeffaflık ve çalışanların motivasyonunu korumamız gerekir."*
+- **Doğru:** *"İyi bir uzaktan çalışma düzeni için düzenli iletişim kurmak, görevleri şeffaf dağıtmak ve çalışanların motivasyonunu korumak gerekir."*
+
+### E. İkili bağlaçlarda kanatlar denk olmalı `[Dil bilgisi]`
+
+`hem ... hem`, `ne ... ne`, `ya ... ya`, `ister ... ister` bağlaçlarının iki kanadı aynı türden ögelerle kurulur:
+
+- **Bozuk:** *"Arayüz hem kullanıcı dostu bir deneyim sunuyor hem de erişilebilirlik standartlarına tam uyumluluk."* (İlk kanat yüklem, ikincisi ad öbeği.)
+- **Doğru:** *"Arayüz hem kullanıcı dostu bir deneyim sunuyor hem de erişilebilirlik standartlarına tam uyuyor."*
+- **Bozuk:** *"İster bulut sunucusu kiralayın ister kendi donanımınıza yatırım yaparak süreci yönetmek mümkün."*
+- **Doğru:** *"İster bulut sunucusu kiralayarak ister kendi donanımınıza yatırım yaparak süreci yönetebilirsiniz."*
+
+`ne ... ne` yargıyı kendisi olumsuz yapar, yüklem olumlu çekimlenir. Konuşmada olumsuz yüklemle de duyulur ama yazı dilinde anlatım bozukluğu sayılır:
+
+- **Bozuk:** *"Bu strateji ne sunucu maliyetini düşürmedi ne de yanıt süresini kısaltmadı."* (Biri olumlu biri olumsuz iki yüklem, *"ne ... düşürdü ne de ... kısaltmadı"*, daha da açık bir bozukluktur.)
+- **Doğru:** *"Bu strateji ne sunucu maliyetini düşürdü ne de yanıt süresini kısalttı."*
+
+### F. Yapay Simetri `[Üslup]`
+
+Dil modeli cümleleri anlamın gerektirmediği bir simetriyle kurar. En sık görülen üç biçim:
+
+- **Ayna karşıtlık:** *"Teknoloji insan için vardır, insan teknoloji için değil."*
+- **Zincirleme tekrar:** *"Veriyi anlamak geleceği anlamaktır, geleceği anlamak değişimi yönetmektir."*
+- **Aynı kalıba dökülmüş üçlü:** *"Bu platform hızıyla zamanı, güvenliğiyle veriyi, esnekliğiyle geleceği korur."*
+
+Bunlar slogan dilidir ve çoğu zaman somut bilgi taşımaz. Onarımda süsü at ve geriye kalan somut iddiayı söyle:
+
+- **Makine:** *"Bu platform hızıyla zamanı, güvenliğiyle veriyi, esnekliğiyle geleceği korur."*
+- **İnsan:** *"Bu platform hızlı, güvenli ve esnek."* (Kaynakta üç özellik var, üçü de kalır. Sorun üçlü liste değil, üç ögenin aynı kalıba dökülmesidir.)
+
+Kaynakta somut bir iddia yoksa onu uydurma. Cümleyi sil ya da `[somut veri: ...]` yer tutucusu bırak. Aynı tik paragraf düzeyinde de görülür: Her paragraf aynı iskeletle (iddia, açıklama, özet cümlesi) kurulur. Paragrafların biçimini içerik belirlesin.
+
+- **Sınır:** Simetri silme testinden geçiyorsa korunur. Gerçek bir karşıtlığı (*"Birinci yöntem hızlı, ikincisi ise yavaş."*) ya da gerçekten koşut iki olguyu anlatan simetri Türkçenin doğal bir aracıdır.
