@@ -32,11 +32,14 @@ TIER2_AND_SYNTAX_PATTERNS = [
     (r"\bsöz\s+konusu\b|\bbu\s+bağlamda\b|\bbu\s+doğrultuda\b|\bbahsi\s+geçen\b", "Tier-2 Bürokratik: 'söz konusu / bu bağlamda / bu doğrultuda'"),
     (r"\bbütüncül\s+(?:bir\s+)?yaklaşım\b|\bparadigma\s+değişimi\b|\bsinerji\s+yarat", "Tier-2 Jargon: 'bütüncül yaklaşım / paradigma değişimi / sinerji'"),
     (r"\bsonuç\s+olarak\b|\bözetlemek\s+gerekirse\b|\bson\s+tahlilde\b", "Tier-2 Kapanış: 'sonuç olarak / özetlemek gerekirse'"),
-    (r"\btarafından\s+(?:gerçekleştiril|yapıl|sağlan|paylaşıl|test\s+edil|geliştiril)", "P1 Sentaks: Edilgen çatı ('tarafından') + yardımcı fiil"),
+    # 'tarafından' tek başına doğru Türkçedir ("Köprü Mimar Sinan tarafından yapıldı"). Yalnızca kof eylemle
+    # ya da yazarın kendi kurumu eyleyen olduğunda bayraklanır.
+    (r"\btarafından\s+(?:gerçekleştiril|sağlan|icra\s+edil)|\b(?:ekibimiz|şirketimiz|kurumumuz|tarafımız)\s+tarafından\b", "P1 Sentaks: Edilgen çatı ('tarafından') + kof eylem ya da yazarın kendi kurumu"),
     (r"\b(?:göstermektedir|belirtmektedir|kanıtlamaktadır|ortaya\s+koymaktadır)\s+ki\b", "P1 Sentaks: Hint-Avrupa tipi '...-mektedir ki' yan cümle kopyası"),
-    (r"\b(?:büyük|yüksek|kritik|ciddi|derin)\s+bir\s+(?:önem|performans|etki|artış|büyüme|hız|başarı)\b", "P1 Sentaks: Soyut kavram önünde gereksiz 'bir' (a/an calque)"),
+    # 'Sıfat + bir + ad' tek başına doğaldır ("derin bir iz bıraktı"). Yalnızca kalıplaşmış birleşik eylemin içindeki 'bir' bayraklanır.
+    (r"\b(?:büyük|yüksek|kritik|ciddi|önemli|hayati)\s+bir\s+(?:önem\s+taşı|artış\s+göster|rol\s+oyna|ivme\s+kazan|önem\s+arz)", "P1 Sentaks: Kalıplaşmış birleşik eylemde gereksiz 'bir' (a/an calque)"),
     (r"\b(?:uç\s+nokta(?:lar|larda|lara|ları)?|olay\s+güdümlü|ara\s+katman|çekme\s+isteği)\b", "P2 Terminoloji: Zorlama teknik terim çevirisi ('uç nokta / olay güdümlü / ara katman')"),
-    (r"\bev\s+sahipliği\s+yapmakta|\bkatkıda\s+bulunmakta", "P1 Kof Fiil: 'ev sahipliği yapmak / katkıda bulunmak'"),
+    (r"\bev\s+sahipliği\s+yapmakta|\bkatkıda\s+bulunmakta", "P1 Kof Fiil: '-mAktAdIr' ile şişirilmiş 'ev sahipliği yapmak / katkıda bulunmak'"),
 ]
 
 PUNCTUATION_AND_TDK_PATTERNS = [
