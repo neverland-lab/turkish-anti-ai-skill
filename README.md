@@ -158,7 +158,7 @@ turkish-anti-ai-skill/
 │   ├── sentaks-ve-morfoloji.md        # Sola dallanma, ulaçlar, vurgu yuvası, -DIr/-mAktAdIr, pro-drop
 │   ├── ai-turkcesi-sozlugu.md         # Tier-1, Tier-2 ve Tier-3 Yapay Zekâ Türkçesi sözlüğü (60+ kalıp)
 │   ├── register-ve-ornekler.md        # 6 register x 9 boyut matrisi ve uçtan uca Before/After örnekleri
-│   └── derlem-olcumleri.md            # 22 Türk yazarı ve 5 dil modelinden ölçülmüş ritim, noktalama ve devrik oranları
+│   └── derlem-olcumleri.md            # 22 Türk yazarı, 8 akademik kitap ve 5 dil modelinden ölçülmüş ritim, noktalama ve devrik oranları
 ├── scripts/
 │   ├── detect_tr_ai.py                # Deterministik Türkçe AI-slop, TDK ve Burstiness (CoV) tarayıcı CLI
 │   └── build_dist.py                  # SKILL.md + references/* dosyalarını dist/ içine derler
