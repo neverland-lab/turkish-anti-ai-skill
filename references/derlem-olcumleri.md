@@ -52,9 +52,9 @@ Aynı ölçümler skill uygulanmış metinlere de yapıldı. Model, istemde skil
 | `ki` (1000 kelimede) | 2,8 | 0 | 2,4 |
 | Noktalı virgül (1000 kelimede) | 2,5 | 7,6 | 6,8 |
 
-Skill sıfırdan yazımda ritmi ve noktalama çeşitliliğini insan düzeyine yaklaştırıyor. 15-22 bandına yığılma ve noktalı virgül sıklığı ise az değişiyor.
+Skill sıfırdan yazımda ritmi ve noktalama çeşitliliğini insan düzeyine yaklaştırıyor. Sonuç tekrarlarda da korundu: Gemini 4 ile ikinci çalıştırmada pencere CoV'si 0,44 ve 15-22 bandı %19, Gemini Flash ile pencere CoV'si 0,31'den 0,44'e, 15-22 bandı %41'den %17'ye. İki yan etki görüldü: Flash devrik cümleyi abarttı (%29, yazarlarda %9). Noktalı virgül sıklığı ise skill'in açık sınırına rağmen düşmedi (1000 kelimede 7-10). Noktalı virgül alışkanlığı bazı modellerde kurala baskın çıkıyor.
 
-**Onarım modu (Gemini 4 onarıcı, 8 metin):** Kaynak metinlerde pencere CoV'si 0,34. Skill'in eski sürümüyle 0,38, ritim örneği eklenmiş sürümle iki ayrı çalıştırmada 0,39 ve 0,44 oldu. Onarımda etki yazıma göre küçük ve çalıştırmadan çalıştırmaya değişken, çünkü onarıcı kaynak cümlelerine bağlı kalıyor.
+**Onarım modu (Gemini 4 onarıcı, 8 metin):** Kaynak metinlerde pencere CoV'si 0,34. Skill'in eski sürümüyle 0,38, ritim örneği eklenmiş sürümle iki ayrı çalıştırmada 0,39 ve 0,44 oldu. Onarımda etki yazıma göre küçük ve çalıştırmadan çalıştırmaya değişken, çünkü onarıcı kaynak cümlelerine bağlı kalıyor. Etki kaynağa göre de değişiyor: Claude Opus metinlerinde pencere CoV'si 0,38'den 0,43'e çıktı, GPT-OSS metinlerinde 0,31'den 0,33'e çıktı. Onarıcı modelin kendi alışkanlıkları da metne sızıyor: Gemini onarıcı, hiç noktalı virgül içermeyen Opus metinlerine noktalı virgül ekledi.
 
 **Kalite ve sadakat:** Bağımsız bir model okur (Gemini) kaynak ve onarılmış sürümleri körlemesine sıraladı. Onarılmış sürümler 8 metnin 7'sinde kaynağın önüne geçti. Ritmi zorlayan sürüm her zaman daha doğal bulunmadı: Ritim için yeniden kurulan cümlelerde yeni hatalar görüldü. Skill'deki "ritim için yeni ifade icat etme" uyarısı bu yüzden eklendi. Sadakat denetiminde 8 onarımdan 5'i temiz, 3'ünde küçük kayıp vardı. Kayıpların ikisi kuralların yan etkisiydi (negatif paralellik ve kapanış kuralları), iki kurala da sınır eklendi.
 
