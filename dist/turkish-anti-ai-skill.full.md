@@ -16,7 +16,7 @@ Detaylı dilbilimi kuralları ve sözlük tabloları için bu dizindeki referans
 - `references/sentaks-ve-morfoloji.md`: Türkçe cümlenin geometrisi (öge dizilimi, bilgi yapısı, gömme derinliği), sola dallanma, ulaç sistemi, vurgu yuvası, `-DIr` ile `-mAktAdIr` ayrımı, zamir düşürme, adlaştırma zincirleri, kof yardımcı fiil dönüşümleri ve koşutluk (ortak öge, liste biçim birliği, yapay simetri).
 - `references/ai-turkcesi-sozlugu.md`: Tier-1 (kesin AI ifşaları), Tier-2 (bürokratik bağlaçlar) ve Tier-3 (SaaS/pazarlama çeviri kalıpları) sözlüğü.
 - `references/tdk-ve-noktalama.md`: 5 mutlak noktalama yasağı, TDK birleşik/ayrı kelimeler ve yabancı teknik terimlerin Türkçe okunuşa göre ek uyumu.
-- `references/derlem-olcumleri.md`: 18 Türk yazarının 20 kitabından ve beş dil modelinden ölçülmüş cümle uzunluğu, ritim, noktalama ve devrik oranları. Ritim ve noktalama kurallarının dayanağı.
+- `references/derlem-olcumleri.md`: 21 Türk yazarının 24 kitabından ve beş dil modelinden ölçülmüş cümle uzunluğu, ritim, noktalama ve devrik oranları. Ritim ve noktalama kurallarının dayanağı.
 - `references/register-ve-ornekler.md`: 6 register × 9 üslup boyutu matrisi (kamu ve kurum içi yazışma profili dâhil) ve uçtan uca Before/After dönüşüm çiftleri.
 
 ## Temel İlkeler
@@ -90,12 +90,12 @@ Detaylı kurallar için `references/tdk-ve-noktalama.md` dosyasını oku:
 
 Taslağı oluşturduktan sonra kullanıcıya sunmadan önce şu kontrolleri yap:
 
-- **Cümle Ritmi (derlemle ölçülmüş, `references/derlem-olcumleri.md`):** Art arda gelen 5 cümlelik pencerelerde cümle uzunluğu değişim katsayısının (CoV) ortancası Türk yazarlarda 0,44-0,47, dil modellerinde 0,28-0,41. Modellerin iki ayrı tekdüzelik tipi var:
+- **Cümle Ritmi (derlemle ölçülmüş, `references/derlem-olcumleri.md`):** Art arda gelen 5 cümlelik pencerelerde cümle uzunluğu değişim katsayısının (CoV) ortancası Türk yazarlarda 0,44-0,48, dil modellerinde 0,28-0,41. Modellerin iki ayrı tekdüzelik tipi var:
   - *Uzun ve tekdüze:* Cümleler 15-22 kelime bandında toplanır. Bu bantta insan kurmacasında cümlelerin %13'ü, insan denemesinde %17'si, model metinlerinde %29-49'u bulunur.
   - *Kısa ve tekdüze:* Her cümle 5-8 kelimedir. Kısa ama hepsi aynı boyda olduğu için ritim yine düzdür.
-  Ölçüt kısa cümle sayısı değil, **değişkenliktir.** Her paragrafta cümlelerin kelime sayısını gerçekten say, tahminle yetinme (yöntem ve örnek: `references/register-ve-ornekler.md`, Örnek 5). Üç cümle art arda birbirine yakın uzunluktaysa (aralarında 3-4 kelimeden az fark varsa) birini böl ya da ikisini ulaçla tek cümlede birleştir. Aynı paragrafta 3-5 kelimelik bir cümle ile 20 kelimeyi aşan bir cümle yan yana durabilir. Ritmi kaynakta olmayan cümle ekleyerek değil, var olan cümleleri bölüp birleştirerek kur. Kurum içi ve teknik metinlerde bu kontrol gevşetilir.
-- **Noktalama Çeşitliliği (kurmaca, blog, deneme):** Türk yazarların kurmaca anlatısında 1000 kelimede yaklaşık 11 soru, 4 ünlem, 4 üç nokta ve 6 iki nokta bulunur, denemede soru ve iki nokta da olağandır (yaklaşık 3 ve 6). Dil modelleri anlatıda bunları neredeyse hiç kullanmaz, düz bildirme cümlesine sıkışır. Kaynakta bir soru, şaşkınlık, yarım kalan düşünce ya da açıklama ilişkisi varsa onu kendi noktalamasıyla ver. Kaynakta olmayan bir soruyu ya da duyguyu ekleme. Noktalı virgülü tamamen silme: Yazarlar 1000 kelimede ortanca 2-3 noktalı virgül kullanır, Gemini ve GPT tipi modeller 7-18. Hedef silmek değil, azaltmaktır.
-- **Devrik Cümle Dozu (ölçülmüş):** İnsan anlatı ve deneme cümlelerinin yaklaşık %9-13'ü devriktir (sezgisel ölçüm), model metinlerinde %1-8. Yazarlarda yüklemden sonra gelen kısım %83 oranında 1-2 kelimedir: zamir (*beni, ona*), işaret sözü (*bu*), özel ad ya da *belki, zaten, hiç* gibi bir zarf. Yüklemden sonraya uzun bir öge ya da yeni bilgi atma. Teknik, kurumsal ve kurum içi register'da devrik kullanılmaz.
+  Ölçüt kısa cümle sayısı değil, **değişkenliktir.** Her paragrafta cümlelerin kelime sayısını gerçekten say, tahminle yetinme (yöntem ve örnek: `references/register-ve-ornekler.md`, Örnek 5). Üç cümle art arda birbirine yakın uzunluktaysa (aralarında 3-4 kelimeden az fark varsa) birini böl ya da ikisini ulaçla tek cümlede birleştir. Aynı paragrafta 3-5 kelimelik bir cümle ile 20 kelimeyi aşan bir cümle yan yana durabilir. Ritmi kaynakta olmayan cümle ekleyerek değil, var olan cümleleri bölüp birleştirerek kur. Bölerken yeni ifade ya da imge icat etme: Ritim için yeniden kurulan cümleler deneylerde yeni hatalar üretti (*"sanki ... gibiydi"* anlam tekrarı, *"onun biraz daha yumuşağı"* gibi bozuk tamlama). Yeniden kurduğun her cümleyi dil bilgisi açısından ayrıca oku. Kurum içi ve teknik metinlerde bu kontrol gevşetilir.
+- **Noktalama Çeşitliliği (kurmaca, blog, deneme):** Türk yazarların kurmaca anlatısında 1000 kelimede yaklaşık 13 soru, 7 ünlem, 9 üç nokta ve 7 iki nokta bulunur, denemede soru ve iki nokta da olağandır (yaklaşık 3 ve 6). Dil modelleri anlatıda bunları neredeyse hiç kullanmaz, düz bildirme cümlesine sıkışır. Kaynakta bir soru, şaşkınlık, yarım kalan düşünce ya da açıklama ilişkisi varsa onu kendi noktalamasıyla ver. Kaynakta olmayan bir soruyu ya da duyguyu ekleme. Noktalı virgülü tamamen silme: Yazarlar 1000 kelimede ortanca 2-3 noktalı virgül kullanır, Gemini ve GPT tipi modeller 7-18. Hedef silmek değil, azaltmaktır: 1000 kelimede 3'ü, yani 300-400 kelimelik bir metinde bir-iki noktalı virgülü geçme.
+- **Devrik Cümle Dozu (ölçülmüş):** İnsan anlatı ve deneme cümlelerinin yaklaşık %9-10'u devriktir (sezgisel ölçüm), model metinlerinde %1-8. Yazarlarda yüklemden sonra gelen kısım %83 oranında 1-2 kelimedir: zamir (*beni, ona*), işaret sözü (*bu*), özel ad ya da *belki, zaten, hiç* gibi bir zarf. Yüklemden sonraya uzun bir öge ya da yeni bilgi atma. Oran yazara göre çok değişir (derlemde %2 ile %35 arası, ortanca %9 civarı). Atay ve Ağaoğlu gibi üslubu belirgin yazarlarda %20'nin üstüne çıkar. Üslup özellikle bunu gerektirmiyorsa her paragrafa devrik koymak yeni bir tike dönüşür. Teknik, kurumsal ve kurum içi register'da devrik kullanılmaz.
 - **Tier-1 Yasaklı Kelime Taraması:** Metinde `âdeta` (`adeta`), `yadsınamaz`, `kritik bir rol oynamaktadır`, `derinlemesine`, `yelpaze`, `dönüm noktası`, `bununla birlikte`, `öte yandan`, `söz konusu`, `bu bağlamda` kalıplarının kalmadığından emin ol (`references/ai-turkcesi-sozlugu.md`).
 - **Koşutluk Kontrolü:** `ve` ile birleştirdiğin her iki yüklemi tek tek oku. Ortak öge ikisine de hâl, çatı ve anlam bakımından uyuyor mu? Ulaçlı yan cümlenin söylenmeyen öznesi ana cümlenin öznesiyle aynı mı?
 - **Olgusal Sadakat Kontrolü:** Kaynak metindeki tüm sayılar, tarihler, teknik terimler ve iddialar korundu mu? Kaynakta olmayan bir sayı, yer adı, kişi, sıfat veya abartı eklendi mi? Artış/azalış yönü, olumsuzluk ve ihtiyat (`-ebilir`, `görünüyor`) aynı kaldı mı? Örnekleme ve kapsam sözcükleri (`gibi`, `vb.`, `bazı`, `çoğu`), tekrar ve süreklilik sözcükleri (`yeniden`, `hâlâ`) ve yeterlilik eki (`-(y)Abil-`) korundu mu? *"... gibi belirtiler"* ifadesini kapalı bir listeye çevirmek de kesinlik uydurmaktır. Ritim hedefini tutturmak için kaynakta olmayan kısa bir cümle eklendiyse sil.
@@ -261,7 +261,7 @@ Yüklemden sonraki konum, bağlamdan bilinen ve ikinci planda kalan bilgiye ayr�
 - **Düz:** *"Kimse bu uzun hata raporlarını sonuna kadar okumuyor."*
 - **Devrik (blog):** *"Kimse sonuna kadar okumuyor bu uzun hata raporlarını."* (Raporlar bağlamda zaten geçtiği için yüklemden sonraya alınabilir.)
 - **Sınır `[Dil bilgisi]`:** Yeni bilgi ve belirtisiz nesne yüklemden sonraya alınmaz. *"Ahmet'e gönderdim rapor."* bozuk bir cümledir.
-- **Kota `[Üslup]`:** Teknik, kurumsal ve akademik register'larda devrik cümle kullanma. Blog/deneme ve anlatı register'ında devrik cümleyi seyrek tut, her cümleyi devrik yapmak yeni bir yapay tike dönüşür. 18 Türk yazarının 20 kitabından oluşan derlemde anlatı ve deneme cümlelerinin yaklaşık %9-13'ü devrik, model metinlerinde %1-8 (sezgisel ölçüm, `derlem-olcumleri.md`). Yazarlarda yüklemden sonra gelen kısım %83 oranında 1-2 kelimedir: zamir (*beni, ona*), işaret sözü (*bu*), özel ad ya da *belki, zaten, hiç* gibi bir zarf.
+- **Kota `[Üslup]`:** Teknik, kurumsal ve akademik register'larda devrik cümle kullanma. Blog/deneme ve anlatı register'ında devrik cümleyi seyrek tut, her cümleyi devrik yapmak yeni bir yapay tike dönüşür. 21 Türk yazarının 24 kitabından oluşan derlemde anlatı ve deneme cümlelerinin yaklaşık %9-10'u devrik, model metinlerinde %1-8 (sezgisel ölçüm, `derlem-olcumleri.md`). Yazarlarda yüklemden sonra gelen kısım %83 oranında 1-2 kelimedir: zamir (*beni, ona*), işaret sözü (*bu*), özel ad ya da *belki, zaten, hiç* gibi bir zarf.
 
 ## 5. Zamir Düşürme (Pro-Drop) ve `"Bir"` / `"Kendi"` Yoğunluğu
 
@@ -735,7 +735,7 @@ Bu dosyadaki sayılar skill'in ritim, noktalama ve devrik kurallarının dayana�
 
 ## Yöntem
 
-- **İnsan derlemi:** Türkçe yazmış 18 yazardan 20 kitap (13 kurmaca, 7 deneme/anı/inceleme). Çeviri eserler bilerek dışarıda bırakıldı, çünkü çeviri Türkçesi skill'in temizlemeye çalıştığı izleri taşır. Kitapların tamamı değil, her kitaptan %20, %50 ve %80 noktalarındaki 8'er sayfalık pencereler alındı (metin dosyalarında aynı noktalardan 4.000'er kelime). Örneklem toplamı diyalog dâhil yaklaşık 180.000 kelimedir. Yazarlar: Adalet Ağaoğlu, İhsan Oktay Anar, Oğuz Atay, Enis Batur, Halide Edib Adıvar, Memduh Şevket Esendal, Sait Faik Abasıyanık, Cemil Meriç, Murathan Mungan, Aziz Nesin, Orhan Pamuk (2), Peyami Safa (2), Sabahattin Ali, Ahmet Hamdi Tanpınar, Hasan Ali Toptaş, Ayfer Tunç, Ahmet Ümit, Çetin Altan.
+- **İnsan derlemi:** Türkçe yazmış 21 yazardan 24 kitap (17 kurmaca, 7 deneme/anı/inceleme). Çeviri eserler bilerek dışarıda bırakıldı, çünkü çeviri Türkçesi skill'in temizlemeye çalıştığı izleri taşır. Kitapların tamamı değil, her kitaptan %20, %50 ve %80 noktalarındaki 8'er sayfalık pencereler alındı (metin dosyalarında aynı noktalardan 4.000'er kelime). Örneklem toplamı diyalog dâhil yaklaşık 215.000 kelimedir. Yazarlar: Adalet Ağaoğlu, İhsan Oktay Anar, Oğuz Atay, Enis Batur, Fakir Baykurt, Halide Edib Adıvar, Memduh Şevket Esendal, Sait Faik Abasıyanık, Cemil Meriç, Murathan Mungan, Aziz Nesin, Ömer Seyfettin, Orhan Pamuk (2), Peyami Safa (2), Sabahattin Ali, Kemal Tahir, Ahmet Hamdi Tanpınar, Hasan Ali Toptaş, Ayfer Tunç, Ahmet Ümit, Çetin Altan, Attila İlhan.
 - **Model derlemi:** Beş modele aynı 8 istek verildi (4 kurmaca, 4 deneme, her biri yaklaşık 400-500 kelime): Gemini 4 Argon, Gemini 3.8 Flash, GPT-OSS 120B, Claude Sonnet 5.5, Claude Opus 5.5. İsteklerde "doğal yaz" ya da "yapay yaz" gibi yönlendirme yoktu.
 - **Ölçüm:** Diyalog paragrafları çıkarıldı, yalnızca anlatı cümleleri sayıldı. Ritim, metin boyunca art arda gelen her 5 cümlelik pencerenin değişim katsayısıyla ölçüldü. Kitaplardan çıkarılan metinlerde gerçek paragraf sınırları güvenilir olmadığı için paragraf temelli ölçüm kullanılmadı. Biçim bilgisi (morfoloji) çözümleyicisi kullanılmadı, ölçümler düzenli ifadeye dayalı sezgisel ölçümlerdir. Devrik cümle sezgiseli 40 cümlelik bir doğrulama setinde bağımsız bir okurla %75 uyuştu. Bu yüzden devrik oranları kesin değer değil, göreli karşılaştırma içindir.
 
@@ -746,14 +746,14 @@ Bu dosyadaki sayılar skill'in ritim, noktalama ve devrik kurallarının dayana�
 | Ortanca cümle uzunluğu (kelime) | 8 | 10 | 12,5-18 | kurmaca 6,5-7, deneme 10,5 |
 | 15-22 kelime bandındaki cümle oranı | %13 | %17 | %29-49 | %3-13 |
 | 6 kelime ve altı cümle oranı | %40 | %23 | %0-13 | %18-50 |
-| 5 cümlelik pencerede CoV (cümle uzunluğu değişim katsayısı) | 0,47 | 0,44 | 0,28-0,41 | 0,35-0,40 |
+| 5 cümlelik pencerede CoV (cümle uzunluğu değişim katsayısı) | 0,48 | 0,44 | 0,28-0,41 | 0,35-0,40 |
 | CoV'si 0,40'ın altında kalan pencere oranı | %30 | %38 | %47-90 | %51-76 |
-| Devrik cümle oranı (sezgisel) | %13 | %9 | %1-8 | %3-7 |
-| Soru işareti (1000 kelimede) | 10,9 | 3,3 | 0-2,3 | 0-1,5 |
-| Ünlem (1000 kelimede) | 3,7 | 0,6 | 0 | 0 |
-| Üç nokta (1000 kelimede) | 3,9 | 0,8 | 0-1,2 | 0 |
-| İki nokta (1000 kelimede) | 6,0 | 5,6 | 0-6,7 | 1,2-4,0 |
-| Noktalı virgül (1000 kelimede) | 2,9 | 2,0 | 6,7-17,9 | 0-5,1 |
+| Devrik cümle oranı (sezgisel) | %9,5 | %9 | %1-8 | %3-7 |
+| Soru işareti (1000 kelimede) | 13,0 | 3,3 | 0-2,3 | 0-1,5 |
+| Ünlem (1000 kelimede) | 6,7 | 0,6 | 0 | 0 |
+| Üç nokta (1000 kelimede) | 9,0 | 0,8 | 0-1,2 | 0 |
+| İki nokta (1000 kelimede) | 7,1 | 5,6 | 0-6,7 | 1,2-4,0 |
+| Noktalı virgül (1000 kelimede) | 2,5 | 2,0 | 6,7-17,9 | 0-5,1 |
 | `ki` bağlacı (1000 kelimede) | 2,7 | 3,5 | 0-1,2 | 1,2-1,3 |
 | `olarak` (1000 kelimede, deneme) | - | 3,3 | 2,6-8,2 | 3,8 |
 | Cümle sonu `-DIr` oranı (deneme) | - | %12 | %15-24 | %16 |
@@ -766,6 +766,28 @@ Bu dosyadaki sayılar skill'in ritim, noktalama ve devrik kurallarının dayana�
 4. **Noktalı virgül tek başına yapay zekâ işareti değildir.** Bazı yazarlar sık kullanır (bir yazarda 1000 kelimede 14). Ama Gemini ve GPT tipi modellerde sıklık 2-6 kat yüksektir.
 5. **`ki` bağlacı genel bir şüphe işareti değildir.** Yazarlar modellerden daha sık kullanır, çoğunlukla kalıplaşmış biçimlerde (*demek ki, öyle ki, kaldı ki, dedi ki*).
 6. **Sözlükteki tek tek klişelerin ayırt ediciliği modele göre değişir.** *Söz konusu* ve *dönüm noktası* hiçbir modelde sık değil. *Öte yandan* ve *Bununla birlikte* bazı modellerde (GPT-OSS, Claude Sonnet) cümle başında sık, Gemini'de seyrek. Modelleri en tutarlı ayıran şey cümle başı geçiş sözü alışkanlığı (*Oysa, Ancak, Sonuç olarak*) ve ritimdir.
+
+## Skill Deneyi: Etkisi Ne Kadar?
+
+Aynı ölçümler skill uygulanmış metinlere de yapıldı. Model, istemde skill'in tam metniyle çalıştı.
+
+**Yazma modu (Gemini 4, 8 istek):**
+
+| Ölçüm | İnsan | Gemini, skill'siz | Gemini, skill ile |
+| :--- | :--- | :--- | :--- |
+| 5 cümlelik pencerede CoV | 0,46 | 0,33 | 0,45 |
+| CoV'si 0,40'ın altında kalan pencere | %36 | %80 | %30 |
+| 15-22 kelime bandı | %13 | %37 | %32 |
+| 6 kelime ve altı cümle | %34 | %6 | %23 |
+| Soru işareti (1000 kelimede) | 6,7 | 0 | 4,7 |
+| `ki` (1000 kelimede) | 2,8 | 0 | 2,4 |
+| Noktalı virgül (1000 kelimede) | 2,5 | 7,6 | 6,8 |
+
+Skill sıfırdan yazımda ritmi ve noktalama çeşitliliğini insan düzeyine yaklaştırıyor. 15-22 bandına yığılma ve noktalı virgül sıklığı ise az değişiyor.
+
+**Onarım modu (Gemini 4 onarıcı, 8 metin):** Kaynak metinlerde pencere CoV'si 0,34. Skill'in eski sürümüyle 0,38, ritim örneği eklenmiş sürümle iki ayrı çalıştırmada 0,39 ve 0,44 oldu. Onarımda etki yazıma göre küçük ve çalıştırmadan çalıştırmaya değişken, çünkü onarıcı kaynak cümlelerine bağlı kalıyor.
+
+**Kalite ve sadakat:** Bağımsız bir model okur (Gemini) kaynak ve onarılmış sürümleri körlemesine sıraladı. Onarılmış sürümler 8 metnin 7'sinde kaynağın önüne geçti. Ritmi zorlayan sürüm her zaman daha doğal bulunmadı: Ritim için yeniden kurulan cümlelerde yeni hatalar görüldü. Skill'deki "ritim için yeni ifade icat etme" uyarısı bu yüzden eklendi. Sadakat denetiminde 8 onarımdan 5'i temiz, 3'ünde küçük kayıp vardı. Kayıpların ikisi kuralların yan etkisiydi (negatif paralellik ve kapanış kuralları), iki kurala da sınır eklendi.
 
 ## Sınırlamalar
 
