@@ -64,6 +64,7 @@ Skill sıfırdan yazımda ritmi ve noktalama çeşitliliğini insan düzeyine ya
 
 ## Sınırlamalar
 
+- İnsan derleminin çoğu 20. yüzyıl yazarlarıdır. Ayrı bir denetim için iki çağdaş romandan (Alev Alatlı, Ayla Kutlu) örnek ölçüldü: Pencere CoV'si ikisinde de 0,50, soru işareti 1000 kelimede 8-15. Ritim bulgusu çağdaş romanda da geçerli görünüyor.
 - Model tarafı küçüktür (beş modelden 40 metin, yaklaşık 17.000 kelime). Sayılar yön göstericidir.
 - İnsan derlemi edebî ve düşünsel metinlerden oluşur. Teknik metin için ayrı ölçüm gerekir. Kurum dili için 7 kamu belgesi ölçüldü (iki belediye faaliyet raporu, iki Sayıştay denetim raporu, bir yönerge, bir mevzuat metni, bir RAM raporu, toplam yaklaşık 36.000 kelime). Ortanca cümle uzunluğu 20 kelime, cümlelerin %35'i 28 kelimeden uzun, devrik oranı %2. Cümlelerin %34'ü `-mIştIr` ile bitiyor ve aynı ekle biten en uzun seri ortanca 9 cümle. Bu yüzden kurum register'ında ritim kuralı ve "art arda aynı ek" sınırı uygulanmaz.
 - OCR ve PDF çıkarımından kaynaklanan hatalar temizlendi ama tamamen giderilemedi. Çıkarımı bozuk dört kitap derlemden çıkarıldı.
