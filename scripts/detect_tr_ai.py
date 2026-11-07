@@ -288,7 +288,7 @@ def main():
             print(f"Ritim (5 cümlelik pencerede CoV ortancası, {rh['window_count']} pencere): {rh['window_cov_median']} | "
                   f"Derlem: insan 0,46-0,49, model 0,28-0,41 | {'Uyarı: düz ritim' if rh['flat_rhythm_warning'] else 'Uygun'}")
         if rh["band_15_22_ratio"] is not None:
-            print(f"15-22 Kelimelik Cümle Oranı: {rh['band_15_22_ratio']} | Derlem: insan 0,13-0,17, uzun cümleli modeller 0,29-0,49 | "
+            print(f"15-22 Kelimelik Cümle Oranı: {rh['band_15_22_ratio']} | Derlem: insan 0,14-0,25, uzun cümleli modeller 0,29-0,49 | "
                   f"{'Uyarı' if rh['band_15_22_warning'] else 'Uygun'}")
         lo, hi = report["mektedir_target_range"]
         print(f"Register: {report['register_label']}")
