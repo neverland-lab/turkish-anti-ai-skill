@@ -5,27 +5,29 @@ Bu dosyadaki sayılar skill'in ritim, noktalama ve devrik kurallarının dayana�
 ## Yöntem
 
 - **İnsan derlemi:** Türkçe yazmış 22 yazardan 24 kitap (17 kurmaca, 7 deneme/anı/inceleme). Çeviri eserler bilerek dışarıda bırakıldı, çünkü çeviri Türkçesi skill'in temizlemeye çalıştığı izleri taşır. Kitapların tamamı değil, her kitaptan %20, %50 ve %80 noktalarındaki 8'er sayfalık pencereler alındı (.txt ve .epub dosyalarında sayfa olmadığı için aynı noktalardan 4.000'er kelime). Ölçülen örneklem toplamı diyalog dâhil yaklaşık 215.000 kelimedir. Yazarlar: Adalet Ağaoğlu, İhsan Oktay Anar, Oğuz Atay, Enis Batur, Fakir Baykurt, Halide Edib Adıvar, Memduh Şevket Esendal, Sait Faik Abasıyanık, Cemil Meriç, Murathan Mungan, Aziz Nesin, Ömer Seyfettin, Orhan Pamuk (2), Peyami Safa (2), Sabahattin Ali, Kemal Tahir, Ahmet Hamdi Tanpınar, Hasan Ali Toptaş, Ayfer Tunç, Ahmet Ümit, Çetin Altan, Attila İlhan.
+- **Akademik derlem:** Aynı yöntemle 5 Türkçe akademik ve inceleme kitabı (tarih, felsefe, siyaset bilimi, iktisat): Bahriye Üçok, Ahmet Cevizci, Tarık Zafer Tunaya, Doğan Avcıoğlu, Asaf Savaş Akat. Örneklem toplamı yaklaşık 47.000 kelime. Kitapların çoğu 1960-1990 arasında yazılmıştır, bugünkü dergi makalesi dilini tam temsil etmez.
 - **Model derlemi:** Beş modele aynı 8 istek verildi (4 kurmaca, 4 deneme, her biri yaklaşık 400-500 kelime): Gemini 4 Argon, Gemini 3.8 Flash, GPT-OSS 120B, Claude Sonnet 5.5, Claude Opus 5.5. İsteklerde "doğal yaz" ya da "yapay yaz" gibi yönlendirme yoktu.
-- **Ölçüm:** Diyalog paragrafları çıkarıldı, yalnızca anlatı cümleleri sayıldı. Ritim, metin boyunca art arda gelen her 5 cümlelik pencerenin değişim katsayısıyla ölçüldü. Kitaplardan çıkarılan metinlerde gerçek paragraf sınırları güvenilir olmadığı için paragraf temelli ölçüm kullanılmadı. Biçim bilgisi (morfoloji) çözümleyicisi kullanılmadı, ölçümler düzenli ifadeye dayalı sezgisel ölçümlerdir. Devrik cümle sezgiseli 40 cümlelik bir doğrulama setinde bağımsız bir okurla %75 uyuştu. Bu yüzden devrik oranları kesin değer değil, göreli karşılaştırma içindir.
+- **Ölçüm:** Diyalog paragrafları çıkarıldı, yalnızca anlatı cümleleri sayıldı. Ritim, metin boyunca art arda gelen her 5 cümlelik pencerenin değişim katsayısıyla ölçüldü. Kitaplardan çıkarılan metinlerde gerçek paragraf sınırları güvenilir olmadığı için paragraf temelli ölçüm kullanılmadı. Sabit genişlikte kırılmış satırlar cümle ortasında bölünmesin diye noktalamayla bitmeyen satırlar ölçümden önce bir sonraki satırla birleştirildi. (Bu düzeltme ilk ölçümde yoktu. Eklenince kurmaca değerleri neredeyse hiç değişmedi, deneme değerleri değişti: ortanca cümle 10'dan 12'ye, 15-22 bandı %17'den %23'e çıktı.) Biçim bilgisi (morfoloji) çözümleyicisi kullanılmadı, ölçümler düzenli ifadeye dayalı sezgisel ölçümlerdir. Devrik cümle sezgiseli 40 cümlelik bir doğrulama setinde bağımsız bir okurla %75 uyuştu. Bu yüzden devrik oranları kesin değer değil, göreli karşılaştırma içindir.
 
 ## Sonuçlar (ortanca değerler)
 
-| Ölçüm | İnsan kurmaca | İnsan deneme | Uzun ve tekdüze modeller (Gemini 4 Argon, Gemini 3.8 Flash, GPT-OSS) | Kısa ve tekdüze modeller (Claude Sonnet, Claude Opus) |
-| :--- | :--- | :--- | :--- | :--- |
-| Ortanca cümle uzunluğu (kelime) | 8 | 10 | 12,5-18 | kurmaca 6,5-7, deneme 10,5 |
-| 15-22 kelime bandındaki cümle oranı | %13 | %17 | %29-49 | %3-13 |
-| 6 kelime ve altı cümle oranı | %40 | %23 | %0-13 | %18-50 |
-| 5 cümlelik pencerede CoV (cümle uzunluğu değişim katsayısı) | 0,48 | 0,44 | 0,28-0,41 | 0,35-0,40 |
-| CoV'si 0,40'ın altında kalan pencere oranı | %30 | %38 | %47-90 | %51-76 |
-| Devrik cümle oranı (sezgisel) | %9,5 | %9 | %1-8 | %3-7 |
-| Soru işareti (1000 kelimede) | 13,0 | 3,3 | 0-2,3 | 0-1,5 |
-| Ünlem (1000 kelimede) | 6,7 | 0,6 | 0 | 0 |
-| Üç nokta (1000 kelimede) | 9,0 | 0,8 | 0-1,2 | 0 |
-| İki nokta (1000 kelimede) | 7,1 | 5,6 | 0-6,7 | 1,2-4,0 |
-| Noktalı virgül (1000 kelimede) | 2,5 | 2,0 | 6,7-17,9 | 0-5,1 |
-| `ki` bağlacı (1000 kelimede) | 2,7 | 3,5 | 0-1,2 | 1,2-1,3 |
-| `olarak` (1000 kelimede, deneme) | - | 3,3 | 2,6-8,2 | 3,8 |
-| Cümle sonu `-DIr` oranı (deneme) | - | %12 | %15-24 | %16 |
+| Ölçüm | İnsan kurmaca | İnsan deneme | İnsan akademik | Uzun ve tekdüze modeller (Gemini 4 Argon, Gemini 3.8 Flash, GPT-OSS) | Kısa ve tekdüze modeller (Claude Sonnet, Claude Opus) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Ortanca cümle uzunluğu (kelime) | 8 | 12 | 13 | 12,5-18 | kurmaca 6,5-7, deneme 10,5 |
+| 15-22 kelime bandındaki cümle oranı | %14 | %23 | %25 | %29-49 | %3-13 |
+| 6 kelime ve altı cümle oranı | %37 | %17 | %16 | %0-13 | %18-50 |
+| 5 cümlelik pencerede CoV (cümle uzunluğu değişim katsayısı) | 0,49 | 0,46 | 0,46 | 0,28-0,41 | 0,35-0,40 |
+| CoV'si 0,40'ın altında kalan pencere oranı | %33 | %36 | %32 | %47-90 | %51-76 |
+| Devrik cümle oranı (sezgisel) | %9,5 | %7 | %8 | %1-8 | %3-7 |
+| Soru işareti (1000 kelimede) | 13,0 | 3,3 | 1,9 | 0-2,3 | 0-1,5 |
+| Ünlem (1000 kelimede) | 6,7 | 0,6 | 0,2 | 0 | 0 |
+| Üç nokta (1000 kelimede) | 9,0 | 0,8 | 0,3 | 0-1,2 | 0 |
+| İki nokta (1000 kelimede) | 7,1 | 5,6 | 5,0 | 0-6,7 | 1,2-4,0 |
+| Noktalı virgül (1000 kelimede) | 2,5 | 2,0 | 5,3 | 6,7-17,9 | 0-5,1 |
+| `ki` bağlacı (1000 kelimede) | 2,7 | 3,5 | 1,7 | 0-1,2 | 1,2-1,3 |
+| `olarak` (1000 kelimede, deneme) | - | 3,2 | 3,2 | 2,6-8,2 | 3,8 |
+| Cümle sonu `-DIr` oranı (deneme) | - | %12 | %24 | %15-24 | %16 |
+| `-mAktAdIr` (100 kelimede) | 0 | 0,02 | 0,23 | 0 | 0 |
 
 ## Yorum
 
@@ -35,6 +37,7 @@ Bu dosyadaki sayılar skill'in ritim, noktalama ve devrik kurallarının dayana�
 4. **Noktalı virgül tek başına yapay zekâ işareti değildir.** Bazı yazarlar sık kullanır (bir yazarda 1000 kelimede 14). Ama Gemini ve GPT tipi modellerde sıklık 2-6 kat yüksektir.
 5. **`ki` bağlacı genel bir şüphe işareti değildir.** Yazarlar modellerden daha sık kullanır, çoğunlukla kalıplaşmış biçimlerde (*demek ki, öyle ki, kaldı ki, dedi ki*).
 6. **Sözlükteki tek tek klişelerin ayırt ediciliği modele göre değişir.** *Söz konusu* ve *dönüm noktası* hiçbir modelde sık değil. *Öte yandan* ve *Bununla birlikte* bazı modellerde (GPT-OSS, Claude Sonnet) cümle başında sık, Gemini'de seyrek. Modelleri en tutarlı ayıran şey cümle başı geçiş sözü alışkanlığı (*Oysa, Ancak, Sonuç olarak*) ve ritimdir.
+7. **Akademik metin cümle boyunda modellere yaklaşır, ritimde yaklaşmaz.** Akademik kitaplarda 15-22 bandı %25 (en yüksek %30), noktalı virgül 1000 kelimede 5,3 (aralık 0,8-8,5). Bu iki ölçüt akademik metinde tek başına yapay zekâ işareti sayılmamalı. Pencere CoV'si ise kurmaca ve denemeyle aynı düzeyde (0,44-0,53). Akademik register'da da en güvenilir ayırt edici ritimdir. `-mAktAdIr` bu kitaplarda beklenenden seyrek (100 kelimede ortanca 0,23, en yüksek 1,4). Ölçülen kitaplar eski olduğu için bu sayı bugünkü makale dili için alt sınır sayılmalı.
 
 ## Skill Deneyi: Etkisi Ne Kadar?
 
@@ -42,17 +45,17 @@ Aynı ölçümler skill uygulanmış metinlere de yapıldı. Model, istemde skil
 
 **Yazma modu (Gemini 4, 8 istek):**
 
-| Ölçüm | İnsan | Gemini, skill'siz | Gemini, skill ile |
+| Ölçüm | İnsan (kurmaca ve deneme, 24 kitap) | Gemini, skill'siz | Gemini, skill ile |
 | :--- | :--- | :--- | :--- |
-| 5 cümlelik pencerede CoV | 0,46 | 0,33 | 0,45 |
-| CoV'si 0,40'ın altında kalan pencere | %36 | %80 | %30 |
-| 15-22 kelime bandı | %13 | %37 | %32 |
-| 6 kelime ve altı cümle | %34 | %6 | %23 |
-| Soru işareti (1000 kelimede) | 6,7 | 0 | 4,7 |
-| `ki` (1000 kelimede) | 2,8 | 0 | 2,4 |
-| Noktalı virgül (1000 kelimede) | 2,5 | 7,6 | 6,8 |
+| 5 cümlelik pencerede CoV | 0,48 | 0,33 | 0,45 |
+| CoV'si 0,40'ın altında kalan pencere | %33 | %80 | %30 |
+| 15-22 kelime bandı | %17 | %37 | %32 |
+| 6 kelime ve altı cümle | %33 | %6 | %23 |
+| Soru işareti (1000 kelimede) | 8,2 | 0 | 4,7 |
+| `ki` (1000 kelimede) | 2,7 | 0 | 2,4 |
+| Noktalı virgül (1000 kelimede) | 2,3 | 7,6 | 6,8 |
 
-Skill sıfırdan yazımda ritmi ve noktalama çeşitliliğini insan düzeyine yaklaştırıyor. Sonuç tekrarlarda da korundu: Gemini 4 ile ikinci çalıştırmada pencere CoV'si 0,44, 15-22 bandı %19 oldu. Gemini Flash ile pencere CoV'si 0,31'den 0,44'e çıktı, 15-22 bandı %41'den %17'ye indi. Claude Sonnet ile de aynı sonuç alındı: pencere CoV'si 0,36'dan 0,45'e çıktı, CoV'si 0,40'ın altında kalan pencere oranı %62'den %36'ya indi (insan yazarlarda %36), soru işareti 1000 kelimede 1,2'den 5,8'e çıktı. İki yan etki görüldü: Flash devrik cümleyi abarttı (%29, yazarlarda %9). Noktalı virgül sıklığı ise skill'in açık sınırına rağmen düşmedi (1000 kelimede 7-10). Noktalı virgül alışkanlığı bazı modellerde kurala baskın çıkıyor.
+Skill sıfırdan yazımda ritmi ve noktalama çeşitliliğini insan düzeyine yaklaştırıyor. Sonuç tekrarlarda da korundu: Gemini 4 ile ikinci çalıştırmada pencere CoV'si 0,44, 15-22 bandı %19 oldu. Gemini Flash ile pencere CoV'si 0,31'den 0,44'e çıktı, 15-22 bandı %41'den %17'ye indi. Claude Sonnet ile de aynı sonuç alındı: pencere CoV'si 0,36'dan 0,45'e çıktı, CoV'si 0,40'ın altında kalan pencere oranı %62'den %36'ya indi (insan yazarlarda %33), soru işareti 1000 kelimede 1,2'den 5,8'e çıktı. İki yan etki görüldü: Flash devrik cümleyi abarttı (%29, yazarlarda %8-9). Noktalı virgül sıklığı ise skill'in açık sınırına rağmen düşmedi (1000 kelimede 7-10). Noktalı virgül alışkanlığı bazı modellerde kurala baskın çıkıyor.
 
 **Onarım modu (Gemini 4 onarıcı, 8 metin):** Kaynak metinlerde pencere CoV'si 0,34. Skill'in eski sürümüyle 0,38, ritim örneği eklenmiş sürümle iki ayrı çalıştırmada 0,39 ve 0,44 oldu. Onarımda etki yazıma göre küçük ve çalıştırmadan çalıştırmaya değişken, çünkü onarıcı kaynak cümlelerine bağlı kalıyor. Etki kaynağa göre de değişiyor: Claude Opus metinlerinde pencere CoV'si 0,38'den 0,43'e çıktı, GPT-OSS metinlerinde 0,31'den 0,33'e çıktı. Onarıcı model de belirleyici: Aynı 8 metni Claude Sonnet onardığında pencere CoV'si hiç değişmedi (0,34'ten 0,33'e), Gemini onardığında 0,38-0,44'e çıktı. Sonnet onarımda kaynak cümlelere çok sadık kalıyor. Bu, sadakat için iyi ama ritmi düzeltmiyor. Ritim onarımı isteniyorsa kullanıcıdan açıkça "cümle boylarını da düzelt" denmesi gerekebilir. Onarıcı modelin kendi alışkanlıkları da metne sızıyor: Onarıcı olarak kullanılan Gemini, hiç noktalı virgül içermeyen Opus metinlerine noktalı virgül ekledi.
 

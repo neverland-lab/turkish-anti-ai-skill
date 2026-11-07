@@ -139,7 +139,7 @@ Yüklemden sonraki konum, bağlamdan bilinen ve ikinci planda kalan bilgiye ayr�
 - **Düz:** *"Kimse bu uzun hata raporlarını sonuna kadar okumuyor."*
 - **Devrik (blog):** *"Kimse sonuna kadar okumuyor bu uzun hata raporlarını."* (Raporlar bağlamda zaten geçtiği için yüklemden sonraya alınabilir.)
 - **Sınır `[Dil bilgisi]`:** Yeni bilgi ve belirtisiz nesne yüklemden sonraya alınmaz. *"Ahmet'e gönderdim rapor."* bozuk bir cümledir.
-- **Kota `[Üslup]`:** Teknik, kurumsal ve akademik register'larda devrik cümle kullanma. Blog/deneme ve anlatı register'ında devrik cümleyi seyrek tut, her cümleyi devrik yapmak yeni bir yapay tike dönüşür. 22 Türk yazarının 24 kitabından oluşan derlemde anlatı ve deneme cümlelerinin yaklaşık %9-10'u devrik, model metinlerinde %1-8 (sezgisel ölçüm, `derlem-olcumleri.md`). Yazarlarda yüklemden sonra gelen kısım %83 oranında 1-2 kelimedir: zamir (*beni, ona*), işaret sözü (*bu*), özel ad ya da *belki, zaten, hiç* gibi bir zarf.
+- **Kota `[Üslup]`:** Teknik, kurumsal ve akademik register'larda devrik cümle kullanma. Blog/deneme ve anlatı register'ında devrik cümleyi seyrek tut, her cümleyi devrik yapmak yeni bir yapay tike dönüşür. 22 Türk yazarının 24 kitabından oluşan derlemde anlatı cümlelerinin yaklaşık %9,5'i, deneme cümlelerinin %7'si devrik, model metinlerinde %1-8 (sezgisel ölçüm, `derlem-olcumleri.md`). Yazarlarda yüklemden sonra gelen kısım %83 oranında 1-2 kelimedir: zamir (*beni, ona*), işaret sözü (*bu*), özel ad ya da *belki, zaten, hiç* gibi bir zarf.
 
 ## 5. Zamir Düşürme (Pro-Drop) ve `"Bir"` / `"Kendi"` Yoğunluğu
 

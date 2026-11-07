@@ -169,10 +169,10 @@ def split_turkish_sentences(text: str) -> list:
 
 
 # Derlem ölçümleri (references/derlem-olcumleri.md): art arda 5 cümlelik pencerelerde cümle uzunluğu CoV ortancası
-# insan metinlerinde 0,44-0,48, model metinlerinde 0,28-0,41. 15-22 kelime bandındaki cümle oranı insanda %13-17,
-# uzun cümleli modellerde %29-49.
+# insan metinlerinde 0,46-0,49, model metinlerinde 0,28-0,41. 15-22 kelime bandındaki cümle oranı insanda %14-25
+# (akademik metinde en çok %30), uzun cümleli modellerde %29-49. Bant uyarısı bu yüzden 0,30'un üstünde verilir.
 WINDOW_COV_TARGET = 0.40
-BAND_15_22_WARN = 0.25
+BAND_15_22_WARN = 0.30
 
 
 def rhythm_profile(text: str, window: int = 5) -> dict:
@@ -286,7 +286,7 @@ def main():
         rh = report["rhythm"]
         if rh["window_cov_median"] is not None:
             print(f"Ritim (5 cümlelik pencerede CoV ortancası, {rh['window_count']} pencere): {rh['window_cov_median']} | "
-                  f"Derlem: insan 0,44-0,48, model 0,28-0,41 | {'Uyarı: düz ritim' if rh['flat_rhythm_warning'] else 'Uygun'}")
+                  f"Derlem: insan 0,46-0,49, model 0,28-0,41 | {'Uyarı: düz ritim' if rh['flat_rhythm_warning'] else 'Uygun'}")
         if rh["band_15_22_ratio"] is not None:
             print(f"15-22 Kelimelik Cümle Oranı: {rh['band_15_22_ratio']} | Derlem: insan 0,13-0,17, uzun cümleli modeller 0,29-0,49 | "
                   f"{'Uyarı' if rh['band_15_22_warning'] else 'Uygun'}")
