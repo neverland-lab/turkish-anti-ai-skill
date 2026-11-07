@@ -16,7 +16,7 @@ Detaylı dilbilimi kuralları ve sözlük tabloları için bu dizindeki referans
 - `references/sentaks-ve-morfoloji.md`: Türkçe cümlenin geometrisi (öge dizilimi, bilgi yapısı, gömme derinliği), sola dallanma, ulaç sistemi, vurgu yuvası, `-DIr` ile `-mAktAdIr` ayrımı, zamir düşürme, adlaştırma zincirleri, kof yardımcı fiil dönüşümleri ve koşutluk (ortak öge, liste biçim birliği, yapay simetri).
 - `references/ai-turkcesi-sozlugu.md`: Tier-1 (kesin AI ifşaları), Tier-2 (bürokratik bağlaçlar) ve Tier-3 (SaaS/pazarlama çeviri kalıpları) sözlüğü.
 - `references/tdk-ve-noktalama.md`: 5 mutlak noktalama yasağı, TDK birleşik/ayrı kelimeler ve yabancı teknik terimlerin Türkçe okunuşa göre ek uyumu.
-- `references/derlem-olcumleri.md`: 22 Türk yazarının 24 kitabından ve beş dil modelinden ölçülmüş cümle uzunluğu, ritim, noktalama ve devrik oranları. Ritim ve noktalama kurallarının dayanağı.
+- `references/derlem-olcumleri.md`: 22 Türk yazarının 24 kitabından, 8 akademik kitaptan ve beş dil modelinden ölçülmüş cümle uzunluğu, ritim, noktalama ve devrik oranları. Ritim ve noktalama kurallarının dayanağı.
 - `references/register-ve-ornekler.md`: 6 register × 9 üslup boyutu matrisi (kamu ve kurum içi yazışma profili dâhil) ve uçtan uca Before/After dönüşüm çiftleri.
 
 ## Temel İlkeler
