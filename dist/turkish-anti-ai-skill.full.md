@@ -47,7 +47,7 @@ Kullanıcı kendi yazısından örnek verdiyse (few-shot referans), cümle uzunl
 | **Kurumsal / Şirket İletişimi / SaaS** | Orta (Tezi ilk cümlede söyle) | Tam (Kurumun kendi eylemini etkene çevir, kof fiili at) | `-mAktAdIr` yalnızca resmî duyuruda, `-DIr` tanımda | Devrik yok, doğal ve doğrudan |
 | **Akademik / Resmî / Hukuki** | Kapalı (Belge iskeletini koru) | Sola dallanma, ulaç ve vurgu yuvası | Korunur, tekrarı azaltılır (100 kelimede yaklaşık 0,5-2,5, art arda üç cümle aynı ekle bitmez, geniş zamanla nöbetleşe) | Kesinlikle yasak |
 | **Edebî / Anlatı** | Tam (Ritim ve imge odaklı) | Tam (Nefes uzunluğu varyasyonu yüksek) | `-mAktAdIr` sil, `-DIr` anlatı akışında seyrek | Anlatı ritmine göre doğal |
-| **Kamu / Kurum İçi Yazışma** | Kapalı (Konu, gerekçe ve sonuç düzenini koru) | Kurum dilini koru (adlaştırma, edilgen, sıfat-fiil). Yalnızca koşutluk, ortak öge ve özne hatalarını onar | Korunur, art arda üç cümle aynı ekle bitmez | Devrik ve parçacık yok |
+| **Kamu / Kurum İçi Yazışma** | Kapalı (Konu, gerekçe ve sonuç düzenini koru) | Kurum dilini koru (adlaştırma, edilgen, sıfat-fiil). Yalnızca koşutluk, ortak öge ve özne hatalarını onar | Korunur. Faaliyet raporunda art arda `-mIştIr` ile biten cümleler olağandır, seyreltme | Devrik ve parçacık yok |
 
 ### Adım 2: Üç Katmanlı Dönüşüm
 
@@ -626,9 +626,9 @@ Kamu kurumunun iç notları, resmî yazıları, faaliyet raporları ve sunum aç
 | :--- | :--- |
 | **Anlatıcı Kimliği** | Kurum adına yazan, nesnel uzman |
 | **Hitap** | 3. kişi ya da kurumsal "biz" (*Belediyemiz ... olarak*). İç yazışmada okura doğrudan seslenilmez |
-| **Cümle Uzunluğu & Burstiness** | Orta-uzun (15-30 kelime). Düşük dalgalanma bu register'da kusur değildir |
+| **Cümle Uzunluğu & Burstiness** | Uzun (kamu belgelerinde ortanca 20 kelime, cümlelerin %35'i 28 kelimeden uzun). Ritim kuralı uygulanmaz |
 | **Cümlecik Bağlama** | Ad-eylem, sıfat-fiil ve edat öbekleri (*nedeniyle, amacıyla, kapsamında*) |
-| **Kip Dağılımı** | `-mAktAdIr`, `-DIr`, geniş zaman ve edilgen. Art arda üç cümle aynı ekle bitmez |
+| **Kip Dağılımı** | `-mAktAdIr`, `-DIr`, `-mIştIr`, geniş zaman ve edilgen. Faaliyet ve denetim raporlarında art arda `-mIştIr` ile biten cümleler olağandır (7 kamu belgesinde cümlelerin %34'ü `-mIştIr` ile bitiyor) |
 | **Söylem Parçacıkları** | Yok |
 | **Devrik Cümle Oranı** | Sıfır (0) |
 | **Terim Tercihi** | Kurum ve mevzuat terimleri korunur |
@@ -787,10 +787,10 @@ Skill sıfırdan yazımda ritmi ve noktalama çeşitliliğini insan düzeyine ya
 
 **Onarım modu (Gemini 4 onarıcı, 8 metin):** Kaynak metinlerde pencere CoV'si 0,34. Skill'in eski sürümüyle 0,38, ritim örneği eklenmiş sürümle iki ayrı çalıştırmada 0,39 ve 0,44 oldu. Onarımda etki yazıma göre küçük ve çalıştırmadan çalıştırmaya değişken, çünkü onarıcı kaynak cümlelerine bağlı kalıyor. Etki kaynağa göre de değişiyor: Claude Opus metinlerinde pencere CoV'si 0,38'den 0,43'e çıktı, GPT-OSS metinlerinde 0,31'den 0,33'e çıktı. Onarıcı modelin kendi alışkanlıkları da metne sızıyor: Onarıcı olarak kullanılan Gemini, hiç noktalı virgül içermeyen Opus metinlerine noktalı virgül ekledi.
 
-**Kalite ve sadakat:** Bağımsız bir model okur (Gemini) kaynak ve onarılmış sürümleri körlemesine sıraladı. Onarılmış sürümler 8 metnin 7'sinde kaynağın önüne geçti. Ritmi zorlayan sürüm her zaman daha doğal bulunmadı: Ritim için yeniden kurulan cümlelerde yeni hatalar görüldü. Skill'deki "ritim için yeni ifade icat etme" uyarısı bu yüzden eklendi. Sadakat denetiminde 8 onarımdan 5'i temiz, 3'ünde küçük kayıp vardı. Kayıpların ikisi kuralların yan etkisiydi (negatif paralellik ve kapanış kuralları), iki kurala da sınır eklendi.
+**Kalite ve sadakat:** Yazma modunda aynı isteğe skill'siz ve skill'le yazılmış Gemini metinleri bağımsız bir model okura (Gemini) körlemesine verildi. Okur 8 isteğin 8'inde skill'le yazılmış metni daha doğal buldu. Onarım modunda aynı okur kaynak ve onarılmış sürümleri körlemesine sıraladı. Onarılmış sürümler 8 metnin 7'sinde kaynağın önüne geçti. Ritmi zorlayan sürüm her zaman daha doğal bulunmadı: Ritim için yeniden kurulan cümlelerde yeni hatalar görüldü. Skill'deki "ritim için yeni ifade icat etme" uyarısı bu yüzden eklendi. Sadakat denetiminde 8 onarımdan 5'i temiz, 3'ünde küçük kayıp vardı. Kayıpların ikisi kuralların yan etkisiydi (negatif paralellik ve kapanış kuralları), iki kurala da sınır eklendi.
 
 ## Sınırlamalar
 
 - Model tarafı küçüktür (beş modelden 40 metin, yaklaşık 17.000 kelime). Sayılar yön göstericidir.
-- İnsan derlemi edebî ve düşünsel metinlerden oluşur. Kurum dili ve teknik metin için ayrı ölçüm gerekir. Üç kamu belgesiyle yapılan küçük bir ölçümde ortanca cümle uzunluğu 16-22 kelime çıktı. Cümle sonunda `-DIr` ve `-mIştIr` ekleri sık görüldü. Bu yüzden kurum register'ında ritim kuralı gevşetilir.
+- İnsan derlemi edebî ve düşünsel metinlerden oluşur. Teknik metin için ayrı ölçüm gerekir. Kurum dili için 7 kamu belgesi ölçüldü (iki belediye faaliyet raporu, iki Sayıştay denetim raporu, bir yönerge, bir mevzuat metni, bir RAM raporu, toplam yaklaşık 36.000 kelime). Ortanca cümle uzunluğu 20 kelime, cümlelerin %35'i 28 kelimeden uzun, devrik oranı %2. Cümlelerin %34'ü `-mIştIr` ile bitiyor ve aynı ekle biten en uzun seri ortanca 9 cümle. Bu yüzden kurum register'ında ritim kuralı ve "art arda aynı ek" sınırı uygulanmaz.
 - OCR ve PDF çıkarımından kaynaklanan hatalar temizlendi ama tamamen giderilemedi. Çıkarımı bozuk dört kitap derlemden çıkarıldı.

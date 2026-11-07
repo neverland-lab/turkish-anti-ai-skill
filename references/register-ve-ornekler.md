@@ -26,9 +26,9 @@ Kamu kurumunun iç notları, resmî yazıları, faaliyet raporları ve sunum aç
 | :--- | :--- |
 | **Anlatıcı Kimliği** | Kurum adına yazan, nesnel uzman |
 | **Hitap** | 3. kişi ya da kurumsal "biz" (*Belediyemiz ... olarak*). İç yazışmada okura doğrudan seslenilmez |
-| **Cümle Uzunluğu & Burstiness** | Orta-uzun (15-30 kelime). Düşük dalgalanma bu register'da kusur değildir |
+| **Cümle Uzunluğu & Burstiness** | Uzun (kamu belgelerinde ortanca 20 kelime, cümlelerin %35'i 28 kelimeden uzun). Ritim kuralı uygulanmaz |
 | **Cümlecik Bağlama** | Ad-eylem, sıfat-fiil ve edat öbekleri (*nedeniyle, amacıyla, kapsamında*) |
-| **Kip Dağılımı** | `-mAktAdIr`, `-DIr`, geniş zaman ve edilgen. Art arda üç cümle aynı ekle bitmez |
+| **Kip Dağılımı** | `-mAktAdIr`, `-DIr`, `-mIştIr`, geniş zaman ve edilgen. Faaliyet ve denetim raporlarında art arda `-mIştIr` ile biten cümleler olağandır (7 kamu belgesinde cümlelerin %34'ü `-mIştIr` ile bitiyor) |
 | **Söylem Parçacıkları** | Yok |
 | **Devrik Cümle Oranı** | Sıfır (0) |
 | **Terim Tercihi** | Kurum ve mevzuat terimleri korunur |

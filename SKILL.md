@@ -47,7 +47,7 @@ Kullanıcı kendi yazısından örnek verdiyse (few-shot referans), cümle uzunl
 | **Kurumsal / Şirket İletişimi / SaaS** | Orta (Tezi ilk cümlede söyle) | Tam (Kurumun kendi eylemini etkene çevir, kof fiili at) | `-mAktAdIr` yalnızca resmî duyuruda, `-DIr` tanımda | Devrik yok, doğal ve doğrudan |
 | **Akademik / Resmî / Hukuki** | Kapalı (Belge iskeletini koru) | Sola dallanma, ulaç ve vurgu yuvası | Korunur, tekrarı azaltılır (100 kelimede yaklaşık 0,5-2,5, art arda üç cümle aynı ekle bitmez, geniş zamanla nöbetleşe) | Kesinlikle yasak |
 | **Edebî / Anlatı** | Tam (Ritim ve imge odaklı) | Tam (Nefes uzunluğu varyasyonu yüksek) | `-mAktAdIr` sil, `-DIr` anlatı akışında seyrek | Anlatı ritmine göre doğal |
-| **Kamu / Kurum İçi Yazışma** | Kapalı (Konu, gerekçe ve sonuç düzenini koru) | Kurum dilini koru (adlaştırma, edilgen, sıfat-fiil). Yalnızca koşutluk, ortak öge ve özne hatalarını onar | Korunur, art arda üç cümle aynı ekle bitmez | Devrik ve parçacık yok |
+| **Kamu / Kurum İçi Yazışma** | Kapalı (Konu, gerekçe ve sonuç düzenini koru) | Kurum dilini koru (adlaştırma, edilgen, sıfat-fiil). Yalnızca koşutluk, ortak öge ve özne hatalarını onar | Korunur. Faaliyet raporunda art arda `-mIştIr` ile biten cümleler olağandır, seyreltme | Devrik ve parçacık yok |
 
 ### Adım 2: Üç Katmanlı Dönüşüm
 
