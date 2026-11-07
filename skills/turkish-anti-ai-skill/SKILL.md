@@ -16,7 +16,7 @@ Detaylı dilbilimi kuralları ve sözlük tabloları için bu dizindeki referans
 - `references/sentaks-ve-morfoloji.md`: Türkçe cümlenin geometrisi (öge dizilimi, bilgi yapısı, gömme derinliği), sola dallanma, ulaç sistemi, vurgu yuvası, `-DIr` ile `-mAktAdIr` ayrımı, zamir düşürme, adlaştırma zincirleri, kof yardımcı fiil dönüşümleri ve koşutluk (ortak öge, liste biçim birliği, yapay simetri).
 - `references/ai-turkcesi-sozlugu.md`: Tier-1 (kesin AI ifşaları), Tier-2 (bürokratik bağlaçlar) ve Tier-3 (SaaS/pazarlama çeviri kalıpları) sözlüğü.
 - `references/tdk-ve-noktalama.md`: 5 mutlak noktalama yasağı, TDK birleşik/ayrı kelimeler ve yabancı teknik terimlerin Türkçe okunuşa göre ek uyumu.
-- `references/derlem-olcumleri.md`: 22 Türk yazarının 24 kitabından, 8 akademik kitaptan ve beş dil modelinden ölçülmüş cümle uzunluğu, ritim, noktalama ve devrik oranları. Ritim ve noktalama kurallarının dayanağı.
+- `references/derlem-olcumleri.md`: 22 Türk yazarının 24 kitabından, 8 akademik kitaptan, 44 DergiPark makalesinden ve beş dil modelinden ölçülmüş cümle uzunluğu, ritim, noktalama ve devrik oranları. Ritim ve noktalama kurallarının dayanağı.
 - `references/register-ve-ornekler.md`: 6 register × 9 üslup boyutu matrisi (kamu ve kurum içi yazışma profili dâhil) ve uçtan uca Before/After dönüşüm çiftleri.
 
 ## Temel İlkeler
@@ -45,7 +45,7 @@ Kullanıcı kendi yazısından örnek verdiyse (few-shot referans), cümle uzunl
 | **Blog / Deneme / Sosyal Medya** | Tam (Sahne ile başla, ilan etme) | Tam (Ulaç, özne düşürme, `-mIş`) | `-mAktAdIr` sil, ad cümlesinde `-DIr` seyrek | Serbest (yazarlarda cümlelerin yaklaşık onda biri devrik) |
 | **Teknik Doküman / Mühendislik** | Orta (Doğrudan probleme gir) | Tam (Sola dallanma, ulaç, net yüklem) | `-mAktAdIr` yerine `-Ar/-Ir` veya `-(I)yor`, tanım cümlesinde `-DIr` korunur | Devrik yok, parçacık çok az |
 | **Kurumsal / Şirket İletişimi / SaaS** | Orta (Tezi ilk cümlede söyle) | Tam (Kurumun kendi eylemini etkene çevir, kof fiili at) | `-mAktAdIr` yalnızca resmî duyuruda, `-DIr` tanımda | Devrik yok, doğal ve doğrudan |
-| **Akademik / Resmî / Hukuki** | Kapalı (Belge iskeletini koru) | Sola dallanma, ulaç ve vurgu yuvası | Korunur, tekrarı azaltılır (100 kelimede yaklaşık 0,5-2,5, art arda üç cümle aynı ekle bitmez, geniş zamanla nöbetleşe) | Kesinlikle yasak |
+| **Akademik / Resmî / Hukuki** | Kapalı (Belge iskeletini koru) | Sola dallanma, ulaç ve vurgu yuvası | Korunur (100 kelimede yaklaşık 0,5-2,5, makalelerde ortanca 1). Art arda üç dört cümlenin aynı ekle bitmesi olağandır, yediyi geçen seriyi geniş zaman ya da `-DI` ile kır | Kesinlikle yasak |
 | **Edebî / Anlatı** | Tam (Ritim ve imge odaklı) | Tam (Nefes uzunluğu varyasyonu yüksek) | `-mAktAdIr` sil, `-DIr` anlatı akışında seyrek | Anlatı ritmine göre doğal |
 | **Kamu / Kurum İçi Yazışma** | Kapalı (Konu, gerekçe ve sonuç düzenini koru) | Kurum dilini koru (adlaştırma, edilgen, sıfat-fiil). Yalnızca koşutluk, ortak öge ve özne hatalarını onar | Korunur. Faaliyet raporunda art arda `-mIştIr` ile biten cümleler olağandır, seyreltme | Devrik ve parçacık yok |
 

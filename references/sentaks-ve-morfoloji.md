@@ -119,7 +119,7 @@ Aynı eki alan sıralı yüklemlerde Türkçe eki yalnızca sonuncuya getirir. E
 
 ### D. Doz
 
-Akademik register'da `-mAktAdIr` ve `-DIr` korunur, sorun eklerin kendisi değil tekrarıdır. Art arda üç cümleyi aynı ekle (`-mektedir`, `-mıştır`, `-dır`) bitirme, geniş zaman (`-Ar/-Ir`) ve `-mIştIr` ile nöbetleşe kullan. Başlangıç hedefi olarak 100 kelimede yaklaşık 0,5-2,5 `-mAktAdIr` kullanılabilir. **Bu aralık bir derlem ölçümüne dayanmaz**, dedektörün `--register` seçeneğiyle değiştirilebilen varsayılan değeridir. Kesin eşik gibi kullanma.
+Akademik register'da `-mAktAdIr` ve `-DIr` korunur. Ölçülen makalelerde 100 kelimede ortanca 1 `-mAktAdIr` var (2016-2019 ve 2026 DergiPark örneklemleri, çeyrekler 0,5-1,6), skill'in 0,5-2,5 aralığı bununla uyuşuyor. Art arda üç dört cümlenin aynı ekle (`-mektedir`, `-mıştır`, `-dır`) bitmesi insan akademik yazısında olağandır: ChatGPT öncesi 19 makalenin 14'ünde üçlü `-mAktAdIr` serisi var, en uzun seri ortanca 5. Yediyi geçen seriyi geniş zaman (`-Ar/-Ir`), `-DI` ya da ad cümlesiyle kır. Ayrıntı: `derlem-olcumleri.md`.
 
 ## 4. Vurgu Yuvası (Yüklem Önü) ve Devrik Cümle
 

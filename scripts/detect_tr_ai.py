@@ -103,7 +103,8 @@ def time_suffix_findings(text: str) -> list:
 
 
 # Register'a göre '-mAktAdIr' hedef aralıkları (100 kelimede). Değerler SKILL.md register
-# tablosundaki dozajın sayısal karşılığıdır. Korpus ölçümüyle kalibre edilmemiş başlangıç değerleridir.
+# tablosundaki dozajın sayısal karşılığıdır. Akademik aralık 2016-2019 ve 2026 DergiPark makaleleriyle
+# sınandı (ortanca 1,0, çeyrekler 0,5-1,6), diğerleri başlangıç değeridir.
 REGISTER_PROFILES = {
     "blog-deneme": {"label": "Blog / Deneme / Sosyal Medya", "mektedir_min": 0.0, "mektedir_max": 0.5},
     "teknik": {"label": "Teknik / Mühendislik", "mektedir_min": 0.0, "mektedir_max": 1.0},
@@ -117,7 +118,10 @@ REGISTER_ALIASES = {"blog": "blog-deneme", "deneme": "blog-deneme", "akademik": 
                     "anlati": "edebi-anlati", "saas": "kurumsal"}
 
 # Art arda aynı cümle sonu: bu sayıda ve üstünde ardışık cümle aynı ek ailesiyle biterse uyarı ver.
+# Akademik register'da sınır derlemden: ChatGPT öncesi (2016-2019) 19 DergiPark makalesinde en uzun seri
+# ortanca 5, üst çeyrek 6, 19 makalenin 14'ünde art arda üç -mAktAdIr var. Üçlü seri orada olağandır.
 REPEATED_ENDING_LIMIT = 3
+REPEATED_ENDING_LIMITS = {"akademik-resmi": 7}
 
 
 def resolve_register(register):
@@ -237,6 +241,7 @@ def analyze_text(text: str, register: str = None) -> dict:
         cov = 0.5
 
     run_len, run_class = max_repeated_ending_run(sentences)
+    run_limit = REPEATED_ENDING_LIMITS.get(register_key, REPEATED_ENDING_LIMIT)
     mektedir_in_range = profile["mektedir_min"] <= mektedir_per_100 <= profile["mektedir_max"]
 
     return {
@@ -246,7 +251,8 @@ def analyze_text(text: str, register: str = None) -> dict:
         "mektedir_in_range": mektedir_in_range,
         "repeated_ending_max_run": run_len,
         "repeated_ending_class": run_class,
-        "repeated_ending_warning": run_len >= REPEATED_ENDING_LIMIT,
+        "repeated_ending_limit": run_limit,
+        "repeated_ending_warning": run_len >= run_limit,
         "word_count": len(words),
         "sentence_count": len(sentences),
         "sentence_lengths": sent_lengths,
@@ -294,7 +300,7 @@ def main():
         print(f"Register: {report['register_label']}")
         print(f"'-mAktAdIr' Yoğunluğu (100 kelimede): {report['mektedir_per_100_words']} | Hedef: {lo}-{hi} | {'Uygun' if report['mektedir_in_range'] else 'Hedef dışı'}")
         run_note = f" ({report['repeated_ending_class']})" if report["repeated_ending_class"] else ""
-        print(f"Art Arda Aynı Cümle Sonu (en uzun seri): {report['repeated_ending_max_run']}{run_note} | Sınır: {REPEATED_ENDING_LIMIT} altı | {'Uyarı' if report['repeated_ending_warning'] else 'Uygun'}")
+        print(f"Art Arda Aynı Cümle Sonu (en uzun seri): {report['repeated_ending_max_run']}{run_note} | Sınır: {report['repeated_ending_limit']} altı | {'Uyarı' if report['repeated_ending_warning'] else 'Uygun'}")
         print(f"Toplam Yakalanan AI/TDK Sinyali: {report['total_flags']}")
         for item in report["findings"]:
             print(f"  - [{item['rule']}] -> \"{item['match']}\"")

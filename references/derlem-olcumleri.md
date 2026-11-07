@@ -39,6 +39,28 @@ Bu dosyadaki sayılar skill'in ritim, noktalama ve devrik kurallarının dayana�
 6. **Sözlükteki tek tek klişelerin ayırt ediciliği modele göre değişir.** *Söz konusu* ve *dönüm noktası* hiçbir modelde sık değil. *Öte yandan* ve *Bununla birlikte* bazı modellerde (GPT-OSS, Claude Sonnet) cümle başında sık, Gemini'de seyrek. Modelleri en tutarlı ayıran şey cümle başı geçiş sözü alışkanlığı (*Oysa, Ancak, Sonuç olarak*) ve ritimdir.
 7. **Akademik metin cümle boyunda modellere yaklaşır, ritimde yaklaşmaz.** Akademik kitaplarda 15-22 bandı %25 (en yüksek %30), noktalı virgül 1000 kelimede 5,6 (aralık 0,8-8,5). Bu iki ölçüt akademik metinde tek başına yapay zekâ işareti sayılmamalı. Pencere CoV'si ise kurmaca ve denemeyle aynı düzeyde (ortanca 0,47, kitaplar arasında 0,42-0,55). Akademik register'da da en güvenilir ayırt edici ölçüt ritimdir. Devrik sezgiseli akademik metinde %5-8 verdi ama elle bakılan 25 örneğin neredeyse hepsi hatalıydı: dipnot numaraları, kaynak gösterimleri ve yüklemi düşmüş ad cümleleri devrik sayılmıştı. Gerçek devrikler yalnızca alıntı şiir çevirilerindeydi. Akademik register'da devrik kullanılmaz kuralı bu yüzden korundu. `-mAktAdIr` bu kitaplarda beklenenden seyrek (100 kelimede ortanca 0,35, en yüksek 1,4). Ölçülen kitapların çoğu eski olduğu için bu sayı bugünkü makale dili için alt sınır sayılmalı.
 
+## Akademik Makale Ölçümü (DergiPark)
+
+Akademik kitapların çoğu eski olduğu için ayrıca güncel makale ölçüldü. DergiPark'ın açık arşivinden iki örneklem alındı. Her dergiden bir makale alındı ve alanlar karışık tutuldu (hukuk, tarih, eğitim, tıp, ziraat, iktisat, matematik, sosyoloji, ilahiyat). İlk örneklem ChatGPT öncesinde, 2016-2019 arasında yayımlanmış 19 makaledir (yaklaşık 106.000 kelime). İkinci örneklem 2026'da yayımlanmış 25 makaledir (yaklaşık 147.000 kelime). Ölçüm yalnızca "Giriş" ile "Kaynakça" arasındaki gövdeye yapıldı. İngilizce özet satırları, tablolar ve parantez içi atıflar çıkarıldı.
+
+| Ölçüm | Makale 2016-2019 | Makale 2026 | Akademik kitap |
+| :--- | :--- | :--- | :--- |
+| `-mAktAdIr` (100 kelimede) | 1,0 (çeyrekler 0,5-1,2) | 1,0 (çeyrekler 0,6-1,6) | 0,35 |
+| Ortanca cümle uzunluğu (kelime) | 18 | 19 | 14,5 |
+| 15-22 kelime bandı | %26 | %30 | %25 |
+| 5 cümlelik pencerede CoV | 0,46 | 0,42 | 0,47 |
+| Cümle sonu `-DIr` oranı | %23 | %13 | %25 |
+| Cümle sonu `-mIştIr` oranı | %17 | %22 | %15 |
+| Art arda aynı ekle biten en uzun cümle serisi | 5 (çeyrekler 5-6) | 8 (çeyrekler 5-12) | - |
+| Art arda üç `-mAktAdIr` serisi bulunan makale | 19'da 14 | 25'te 19 | 8'de 5 |
+| Noktalı virgül (1000 kelimede) | 3,7 | 3,6 | 5,6 |
+
+Yorum:
+
+1. **Skill'in akademik `-mAktAdIr` aralığı (100 kelimede 0,5-2,5) makalelerle uyuşuyor.** İki örneklemde de ortanca 1,0. Kitaplardaki düşük değer (0,35) türden kaynaklanıyor: Makale dili kitap dilinden daha resmî.
+2. **Art arda üç cümlenin aynı ekle bitmesi akademik yazıda olağandır.** ChatGPT öncesi makalelerin çoğunda üçlü `-mAktAdIr`, `-mIştIr` ya da `-DIr` serisi var. Bu yüzden "art arda üç cümle aynı ekle bitmez" kuralı akademik register'dan kaldırıldı. Dedektör akademik register'da yedi ve üstü seriyi işaretliyor. Bu sınırla 2016-2019 makalelerinin 19'unda 3'ü, 2026 makalelerinin 25'inde 19'u uyarı aldı.
+3. **2026 makaleleri ChatGPT öncesi makalelerden farklı.** Cümle sonu `-DIr` oranı yarıya inmiş (fark anlamlı, permütasyon testi p<0,001), aynı ekle biten seriler uzamış (p≈0,02), pencere CoV'si düşmüş (p≈0,07). Bu fark yapay zekâ destekli yazımın izi olabilir. Ama örneklemler küçük ve alan dağılımları birebir eşleşmiyor. Bu yüzden bu bir kanıt değil, bir gözlemdir. Akademik insan referansı olarak 2026 makaleleri değil, 2016-2019 makaleleri kullanılmalı.
+
 ## Skill Deneyi: Etkisi Ne Kadar?
 
 Aynı ölçümler skill uygulanmış metinlere de yapıldı. Model, istemde skill'in tam metniyle çalıştı.

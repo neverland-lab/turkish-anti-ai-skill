@@ -122,7 +122,7 @@ python3 scripts/detect_tr_ai.py ornek-metin.md --json
 python3 scripts/detect_tr_ai.py makale.md --register akademik-resmi
 ```
 
-`--register` değerleri: `blog-deneme`, `teknik`, `kurumsal`, `akademik-resmi`, `edebi-anlati`. Register verildiğinde dedektör `-mAktAdIr` yoğunluğunu o metin türünün hedef aralığıyla karşılaştırır. Akademik register'da ek korunur, hedef 100 kelimede yaklaşık 0,5-2,5'tir. Blog ve edebî metinde hedef sıfıra yakındır. Ayrıca art arda üç veya daha fazla cümlenin aynı ekle (`-mektedir`, `-mıştır`, `-dır`) bitip bitmediğini ölçer. Bu aralıklar korpusla kalibre edilmiş değerler değil, `scripts/detect_tr_ai.py` içinden değiştirilebilen başlangıç değerleridir.
+`--register` değerleri: `blog-deneme`, `teknik`, `kurumsal`, `akademik-resmi`, `edebi-anlati`. Register verildiğinde dedektör `-mAktAdIr` yoğunluğunu o metin türünün hedef aralığıyla karşılaştırır. Akademik register'da ek korunur, hedef 100 kelimede yaklaşık 0,5-2,5'tir. Blog ve edebî metinde hedef sıfıra yakındır. Ayrıca art arda kaç cümlenin aynı ekle (`-mektedir`, `-mıştır`, `-dır`) bittiğini ölçer. Sınır genelde üç, akademik register'da yedidir, çünkü ChatGPT öncesi DergiPark makalelerinde üçlü seri olağandır. Akademik aralık ve seri sınırı makale ölçümüne dayanır (`references/derlem-olcumleri.md`). Diğer register'ların aralıkları `scripts/detect_tr_ai.py` içinden değiştirilebilen başlangıç değerleridir.
 
 Tek parça `dist/turkish-anti-ai-skill.full.md` dosyasını yeniden derlemek için:
 
